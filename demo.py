@@ -2,9 +2,11 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/helloWorld")
-def helloWorld():
-    return "Hello World"
+@app.route('/')
+def hello_world():
+    return 'Hello from Flask!'
 
-if __name__ == "__main__":
-    app.run()
+@app.route('/location')
+def location():
+    return 'This is your location!'
+
