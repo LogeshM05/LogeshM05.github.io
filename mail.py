@@ -8,10 +8,10 @@ def showHomePage():
     return "This is home page"
 
 # @app.route("/email_push", methods=["POST"])
-def email_push():
-    email = request.form["email"]
-    subject = request.form["subject"]
-    body = request.form["body"]
+def email_push(email1,subject1,body1):
+    email = email1.form["email"]
+    subject = subject1.form["subject"]
+    body = body1.form["body"]
 
     # Perform email push logic here using a library or API of your choice
     # For example, using the smtplib library
