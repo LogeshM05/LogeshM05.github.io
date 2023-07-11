@@ -1,13 +1,13 @@
-from flask import Flask, request
+# from flask import Flask, request
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-@app.route("/start")
+# @app.route("/start")
 def showHomePage():
       # response from the server
     return "This is home page"
 
-@app.route("/email_push", methods=["POST"])
+# @app.route("/email_push", methods=["POST"])
 def email_push():
     email = request.form["email"]
     subject = request.form["subject"]
