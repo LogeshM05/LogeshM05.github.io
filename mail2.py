@@ -17,6 +17,10 @@ def send_email(sender_email, receiver_email, subject, message):
 
     # Add the message to the email
     email_message.attach(MIMEText(message, 'plain'))
+    print(sender_email)
+    print(receiver_email)
+    print(subject)
+    print(message)
 
     # Send the email
     try:
