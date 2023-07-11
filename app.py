@@ -1,18 +1,18 @@
-from flask import Flask
-from flask import request
+# from flask import Flask
+# from flask import request
 
  
-# Flask Constructor
-app = Flask(__name__)
+# # Flask Constructor
+# app = Flask(__name__)
  
 # decorator to associate
 # a function with the url
-@app.route("/")
+# @app.route("/")
 def showHomePage():
       # response from the server
     return "This is home page"
     
-@app.route("/debug", methods=["POST"])
+# @app.route("/debug", methods=["POST"])
 def debug():
     text = request.form["sample"]
     print(text)
