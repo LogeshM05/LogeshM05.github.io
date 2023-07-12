@@ -33,4 +33,5 @@ def send_email(receiver_email, subject, message,callback):
 def get_location(lat,lon,callback):
     latitude = lat
     longitude = lon
+    print(latitude,longitude)
     callback.onLocationReceived('Latitude: ' + str(latitude) + ', Longitude: ' + str(longitude))   
