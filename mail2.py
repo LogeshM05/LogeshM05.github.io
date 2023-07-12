@@ -2,7 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-def send_email(receiver_email, subject, message):
+def send_email(receiver_email, subject, message,callback):
     # Email configuration
     smtp_server = 'smtp.gmail.com'
     smtp_port = 587
@@ -26,7 +26,6 @@ def send_email(receiver_email, subject, message):
             server.starttls()
             server.login(smtp_username, smtp_password)
             server.send_message(email_message)
-        return 'Email sent successfully'
+        callback.onPythonCallback('Email sent successfully')
     except smtplib.SMTPException as e:
-        return 'Error sending email: ' + str(e)
-
+        callback.onPythonCallback('Error sending email: ' + str(e))
