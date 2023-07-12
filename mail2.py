@@ -29,3 +29,8 @@ def send_email(receiver_email, subject, message,callback):
         callback.onPythonCallback('Email sent successfully')
     except smtplib.SMTPException as e:
         callback.onPythonCallback('Error sending email: ' + str(e))
+
+def get_location(lat,lon,callback):
+    latitude = lat
+    longitude = lon
+    callback.onLocationReceived('Latitude: ' + str(latitude) + ', Longitude: ' + str(longitude))   
