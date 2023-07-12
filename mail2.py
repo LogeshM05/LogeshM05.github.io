@@ -34,4 +34,4 @@ def get_location(lat,lon,callback):
     latitude = lat
     longitude = lon
     print(latitude,longitude)
-    callback.onLocationReceived('Latitude: ' + str(latitude) + ', Longitude: ' + str(longitude))   
+    callback.onLocationReceived(latitude,longitude)
