@@ -31,7 +31,7 @@ class PythonLifecyclePythonWrapper(Application_ActivityLifecycleCallbacks):
     def onActivityDestroyed(self, activity):
         print("onActivityDestroyed:", activity)
 
-
+    @staticmethod
     def attach(self, application):        
         print("onAttach successfully called")
         application.registerActivityLifecycleCallbacks(self)
