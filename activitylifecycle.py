@@ -1,10 +1,11 @@
 from java import jclass as autoclass
 
-Application = autoclass('android.app.Application')
 Activity = autoclass('android.app.Activity')
 Bundle = autoclass('android.os.Bundle')
+Application = autoclass('android.app.Application')
+Application_ActivityLifecycleCallbacks = autoclass('android.app.Application$ActivityLifecycleCallbacks')
 
-class PythonLifecyclePythonWrapper(Application.ActivityLifecycleCallbacks):
+class PythonLifecyclePythonWrapper(Application_ActivityLifecycleCallbacks):
 
     def __init__(self):
         self.application = None
