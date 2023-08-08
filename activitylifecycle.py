@@ -3,7 +3,7 @@ from java import jclass as autoclass
 Activity = autoclass('android.app.Activity')
 Bundle = autoclass('android.os.Bundle')
 
-class PythonLifecyclePythonWrapper:
+# class PythonLifecyclePythonWrapper:
 
     # @staticmethod
     def onActivityCreated(activity, savedInstanceState):
@@ -41,6 +41,8 @@ class PythonLifecyclePythonWrapper:
         print("onActivityDestroyed:", activity)
 
     # @staticmethod
-    def attach(application):
-        callback = PythonLifecyclePythonWrapper()
-        application.registerActivityLifecycleCallbacks(callback)
+    def attach(application):        
+        print("onAttach successfully called)
+
+        # callback = PythonLifecyclePythonWrapper()
+        # application.registerActivityLifecycleCallbacks(callback)
