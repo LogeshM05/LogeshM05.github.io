@@ -3,7 +3,7 @@ from java import jclass as autoclass
 Activity = autoclass('android.app.Activity')
 Bundle = autoclass('android.os.Bundle')
 
-class PythonLifecyclePythonWrapper:
+# class PythonLifecyclePythonWrapper:
 
     @staticmethod
     def onActivityCreated(activity, savedInstanceState):
