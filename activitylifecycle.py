@@ -1,23 +1,34 @@
 from java import jclass as autoclass
 
-Application = autoclass('android.app.Application')
-Activity = autoclass('android.app.Activity')
-Bundle = autoclass('android.os.Bundle')
-Log = autoclass('android.util.Log')
+PythonLifecyclePythonWrapper = autoclass('com.example.pythonlifecycle.PythonLifecyclePythonWrapper')
 
-class ApplicationLifecycleCallbacksWrapper:
-    def __init__(self):
-        self.application = Application.getApplication()
-        self.lifecycle_callbacks = ApplicationLifecycleCallbacks()
+def onActivityCreated(activity, savedInstanceState):
+    # Called when an activity is created
+    pass
 
-    def initialize(self):
-        self.application.registerActivityLifecycleCallbacks(self.lifecycle_callbacks)
+def onActivityStarted(activity):
+    # Called when an activity is started
+    pass
 
-    def on_activity_created(self, activity, bundle):
-        try:
-            activity_instance = cast(Activity, activity)
-            bundle_instance = cast(Bundle, bundle)
-            self.lifecycle_callbacks.onActivityCreated(activity_instance, bundle_instance)
-            print("onActivity callback called")
-        except Exception as e:
-            Log.e("ApplicationLifecycle", "Error in on_activity_created: " + str(e))
+def onActivityResumed(activity):
+    # Called when an activity is resumed
+    pass
+
+def onActivityPaused(activity):
+    # Called when an activity is paused
+    pass
+
+def onActivityStopped(activity):
+    # Called when an activity is stopped
+    pass
+
+def onActivitySaveInstanceState(activity, outState):
+    # Called when an activity's state is saved
+    pass
+
+def onActivityDestroyed(activity):
+    # Called when an activity is destroyed
+    pass
+
+def attach(application):
+    PythonLifecyclePythonWrapper.attach(application)
