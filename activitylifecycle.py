@@ -4,7 +4,7 @@ Application = autoclass('android.app.Application')
 Activity = autoclass('android.app.Activity')
 Bundle = autoclass('android.os.Bundle')
 
-class PythonLifecyclePythonWrapper:
+class PythonLifecyclePythonWrapper(Application.ActivityLifecycleCallbacks):
 
     def __init__(self):
         self.application = None
@@ -33,7 +33,7 @@ class PythonLifecyclePythonWrapper:
 
     def attach(self, application):        
         print("onAttach successfully called")
-        self.application = application
+        application.registerActivityLifecycleCallbacks(self)
 
         if self.application is not None:
             self.application.registerActivityLifecycleCallbacks(self)
