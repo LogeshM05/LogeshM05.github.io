@@ -1,48 +1,42 @@
 from java import jclass as autoclass
 
+Application = autoclass('android.app.Application')
 Activity = autoclass('android.app.Activity')
 Bundle = autoclass('android.os.Bundle')
 
 class PythonLifecyclePythonWrapper:
 
-    @staticmethod
-    def onActivityCreated(activity, savedInstanceState):
-        # Called when an activity is created
-        print("onActivityCreated:", activity)
+    def __init__(self):
+        self.application = None
 
-    @staticmethod
-    def onActivityStarted(activity):
-        # Called when an activity is started
+    def onActivityCreated(self, activity, savedInstanceState):
+        print("onActivityCreated:", activity)
+        
+    def onActivityStarted(self, activity):
         print("onActivityStarted:", activity)
 
-    @staticmethod
-    def onActivityResumed(activity):
-        # Called when an activity is resumed
+    def onActivityResumed(self, activity):
         print("onActivityResumed:", activity)
 
-    @staticmethod
-    def onActivityPaused(activity):
-        # Called when an activity is paused
+    def onActivityPaused(self, activity):
         print("onActivityPaused:", activity)
 
-    @staticmethod
-    def onActivityStopped(activity):
-        # Called when an activity is stopped
+    def onActivityStopped(self, activity):
         print("onActivityStopped:", activity)
 
-    @staticmethod
-    def onActivitySaveInstanceState(activity, outState):
-        # Called when an activity's state is saved
+    def onActivitySaveInstanceState(self, activity, outState):
         print("onActivitySaveInstanceState:", activity)
 
-    @staticmethod
-    def onActivityDestroyed(activity):
-        # Called when an activity is destroyed
+    def onActivityDestroyed(self, activity):
         print("onActivityDestroyed:", activity)
 
-    @staticmethod
-    def attach(application):        
-        print("onAttach successfully called")
 
-        # callback = PythonLifecyclePythonWrapper()
-        # application.registerActivityLifecycleCallbacks(callback)
+    def attach(self, application):        
+        print("onAttach successfully called")
+        self.application = application
+
+        if self.application is not None:
+            self.application.registerActivityLifecycleCallbacks(self)
+
+# Create an instance of PythonLifecyclePythonWrapper
+lifecycle_wrapper = PythonLifecyclePythonWrapper()
