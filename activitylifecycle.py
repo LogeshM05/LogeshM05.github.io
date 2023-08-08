@@ -1,34 +1,46 @@
 from java import jclass as autoclass
 
-PythonLifecyclePythonWrapper = autoclass('com.example.pythonlifecycle.PythonLifecyclePythonWrapper')
+Activity = autoclass('android.app.Activity')
+Bundle = autoclass('android.os.Bundle')
 
-def onActivityCreated(activity, savedInstanceState):
-    # Called when an activity is created
-    pass
+class PythonLifecyclePythonWrapper:
 
-def onActivityStarted(activity):
-    # Called when an activity is started
-    pass
+    @staticmethod
+    def onActivityCreated(activity, savedInstanceState):
+        # Called when an activity is created
+        print("onActivityCreated:", activity)
 
-def onActivityResumed(activity):
-    # Called when an activity is resumed
-    pass
+    @staticmethod
+    def onActivityStarted(activity):
+        # Called when an activity is started
+        print("onActivityStarted:", activity)
 
-def onActivityPaused(activity):
-    # Called when an activity is paused
-    pass
+    @staticmethod
+    def onActivityResumed(activity):
+        # Called when an activity is resumed
+        print("onActivityResumed:", activity)
 
-def onActivityStopped(activity):
-    # Called when an activity is stopped
-    pass
+    @staticmethod
+    def onActivityPaused(activity):
+        # Called when an activity is paused
+        print("onActivityPaused:", activity)
 
-def onActivitySaveInstanceState(activity, outState):
-    # Called when an activity's state is saved
-    pass
+    @staticmethod
+    def onActivityStopped(activity):
+        # Called when an activity is stopped
+        print("onActivityStopped:", activity)
 
-def onActivityDestroyed(activity):
-    # Called when an activity is destroyed
-    pass
+    @staticmethod
+    def onActivitySaveInstanceState(activity, outState):
+        # Called when an activity's state is saved
+        print("onActivitySaveInstanceState:", activity)
 
-def attach(application):
-    PythonLifecyclePythonWrapper.attach(application)
+    @staticmethod
+    def onActivityDestroyed(activity):
+        # Called when an activity is destroyed
+        print("onActivityDestroyed:", activity)
+
+    @staticmethod
+    def attach(application):
+        callback = PythonLifecyclePythonWrapper()
+        application.registerActivityLifecycleCallbacks(callback)
