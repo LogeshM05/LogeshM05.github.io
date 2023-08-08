@@ -40,7 +40,7 @@ class PythonLifecyclePythonWrapper:
         # Called when an activity is destroyed
         print("onActivityDestroyed:", activity)
 
-    @staticmethod
+    # @staticmethod
     def attach(application):
         callback = PythonLifecyclePythonWrapper()
         application.registerActivityLifecycleCallbacks(callback)
