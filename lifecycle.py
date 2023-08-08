@@ -1,5 +1,4 @@
-from jnius import autoclass
-
+from java import jclass as autoclass
 class AndroidInteraction:
 
     def __init__(self, context):
