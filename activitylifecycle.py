@@ -18,5 +18,6 @@ class ApplicationLifecycleCallbacksWrapper:
             activity_instance = cast(Activity, activity)
             bundle_instance = cast(Bundle, bundle)
             self.lifecycle_callbacks.onActivityCreated(activity_instance, bundle_instance)
+            print("onActivity callback called")
         except Exception as e:
             Log.e("ApplicationLifecycle", "Error in on_activity_created: " + str(e))
