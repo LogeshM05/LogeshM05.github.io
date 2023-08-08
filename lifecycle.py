@@ -8,6 +8,7 @@ class AndroidInteraction:
     def get_device_name(self):
         bridge = self.AndroidBridge(self.context)
         print(bridge.getDeviceName())
+        print("got device name successfully")
 
 # def on_create():
 #     print("Python: Activity onCreate callback triggered")
