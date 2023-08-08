@@ -4,11 +4,11 @@ class AndroidInteraction:
 
     def __init__(self, context):
         self.context = context
-        self.AndroidBridge = autoclass('com.example.myapp.AndroidBridge')
+        self.AndroidBridge = autoclass('com.example.pythonlifecycle.AndroidBridge')
 
     def get_device_name(self):
         bridge = self.AndroidBridge(self.context)
-        return bridge.getDeviceName()
+        print(bridge.getDeviceName())
 
 # def on_create():
 #     print("Python: Activity onCreate callback triggered")
