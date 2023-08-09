@@ -1,16 +1,14 @@
-# my_script.py
+def on_created():
+    print("App created event")
 
-from jnius import autoclass
+def on_resumed():
+    print("App resumed event")
 
-# Get the Java classes
-PythonActivity = autoclass('org.kivy.android.PythonActivity')
+def on_paused():
+    print("App paused event")
 
-def main():
-    # Get the Context of the current Android application
-    activity = PythonActivity.mActivity
-    context = activity.getApplicationContext()
-    
-    # Get the package name of the Context
-    package_name = context.getPackageName()
-    print("Package Name:", package_name)
-    
+def on_stopped():
+    print("App stopped event")
+
+def on_destroyed():
+    print("App destroyed event")
