@@ -1,6 +1,9 @@
 def on_created():
     print("App created event")
 
+def on_started():
+    print("App start event")
+
 def on_resumed():
     print("App resumed event")
 
