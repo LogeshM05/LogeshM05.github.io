@@ -19,6 +19,30 @@ class LifecycleManager:
         except Exception as e:
             # Handle exceptions appropriately
             pass
+            
+        def onActivityCreated(self, activity, savedInstanceState):
+            print("onActivityCreated called")
+
+        def onActivityStarted(self, activity):
+            print("onActivityStarted called")
+
+        def onActivityResumed(self, activity):
+            print("onActivityResumed called")
+
+        def onActivityPaused(self, activity):
+            print("onActivityPaused called")
+
+        def onActivityStopped(self, activity):
+            print("onActivityStopped called")
+
+        def onActivitySaveInstanceState(self, activity, outState):
+            print("onActivitySaveInstanceState called")
+
+        def onActivityDestroyed(self, activity):
+            print("onActivityDestroyed called")
+
+
+
 
 # Instantiate the LifecycleManager and register callbacks
 context = autoclass('com.chaquo.python.Python').getPlatform().getApplication()
