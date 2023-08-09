@@ -1,26 +1,25 @@
-import android
+# lifecycle_listener.py
+from jnius import autoclass, PythonJavaClass, java_method
 
-class MyLifecycleCallbacks:
-    def __init__(self, application):
-        self.application = application
+Activity = autoclass('android.app.Activity')
+LifecycleObserver = autoclass('androidx.lifecycle.LifecycleObserver')
+Lifecycle = autoclass('androidx.lifecycle.Lifecycle')
+OnLifecycleEvent = autoclass('androidx.lifecycle.OnLifecycleEvent')
 
-    def onCreate(self):
-        android.makeToast("App: onCreate called")
+class MyLifecycleObserver(PythonJavaClass, LifecycleObserver):
+    __javainterfaces__ = ['androidx/lifecycle/LifecycleObserver']
 
-    def onStart(self):
-        android.makeToast("App: onStart called")
+    def __init__(self, callback):
+        super().__init__()
+        self.callback = callback
 
-    def onResume(self):
-        android.makeToast("App: onResume called")
+    @java_method('()V')
+    def on_create(self):
+        self.callback('on_create')
 
-    def onPause(self):
-        android.makeToast("App: onPause called")
+# Add other lifecycle event methods here
 
-    def onStop(self):
-        android.makeToast("App: onStop called")
-
-    def onDestroy(self):
-        android.makeToast("App: onDestroy called")
-
-    def registerLifecycleCallbacks(self):
-        self.application.registerActivityLifecycleCallbacks(self)
+def add_lifecycle_observer(activity, callback):
+    lifecycle = activity.getLifecycle()
+    observer = MyLifecycleObserver(callback)
+    lifecycle.addObserver(observer)
