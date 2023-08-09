@@ -22,7 +22,7 @@ def on_destroyed(activity_name):
 def registerAndroidLifeCycleEvents(context):
     application = context.getApplicationContext()
 
-    my_lifecycle = context.getModule("android_lifecycle")
+    my_lifecycle = context.getModule("androidlifecycle")
     
     class MyLifecycleCallbacks(application.ActivityLifecycleCallbacks):
         def onActivityCreated(self, activity, savedInstanceState):
