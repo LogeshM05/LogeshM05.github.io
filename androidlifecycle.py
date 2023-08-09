@@ -19,11 +19,10 @@ def on_stopped(activity_name):
 def on_destroyed(activity_name):
     print(f"Activity destroyed: {activity_name}")
 
-def registerAndroidLifeCycleEvents():
-    context = AndroidContext.get()
+def registerAndroidLifeCycleEvents(context):
     application = context.getApplicationContext()
 
-    my_lifecycle = context.getModule("my_lifecycle")
+    my_lifecycle = context.getModule("android_lifecycle")
     
     class MyLifecycleCallbacks(application.ActivityLifecycleCallbacks):
         def onActivityCreated(self, activity, savedInstanceState):
