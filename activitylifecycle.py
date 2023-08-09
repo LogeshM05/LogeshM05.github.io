@@ -1,43 +1,26 @@
 from java import jclass as autoclass
 
-Activity = autoclass('android.app.Activity')
-Bundle = autoclass('android.os.Bundle')
+# Java classes
+Context = autoclass('android.content.Context')
 Application = autoclass('android.app.Application')
-Application_ActivityLifecycleCallbacks = autoclass('android.app.Application$ActivityLifecycleCallbacks')
+ActivityLifecycleCallbacks = autoclass('android.app.Application$ActivityLifecycleCallbacks')
 
-class PythonLifecyclePythonWrapper(Application_ActivityLifecycleCallbacks):
+class LifecycleManager:
+    def __init__(self, context):
+        self.context = context
+        self.activity_lifecycle_callbacks = None
 
-    def __init__(self):
-        self.application = None
+    def register_activity_callbacks(self):
+        try:
+            if self.activity_lifecycle_callbacks is None:
+                app = self.context.getApplicationContext()
+                self.activity_lifecycle_callbacks = ActivityLifecycleCallbacks()
+                app.registerActivityLifecycleCallbacks(self.activity_lifecycle_callbacks)
+        except Exception as e:
+            # Handle exceptions appropriately
+            pass
 
-    def onActivityCreated(self, activity, savedInstanceState):
-        print("onActivityCreated:", activity)
-        
-    def onActivityStarted(self, activity):
-        print("onActivityStarted:", activity)
-
-    def onActivityResumed(self, activity):
-        print("onActivityResumed:", activity)
-
-    def onActivityPaused(self, activity):
-        print("onActivityPaused:", activity)
-
-    def onActivityStopped(self, activity):
-        print("onActivityStopped:", activity)
-
-    def onActivitySaveInstanceState(self, activity, outState):
-        print("onActivitySaveInstanceState:", activity)
-
-    def onActivityDestroyed(self, activity):
-        print("onActivityDestroyed:", activity)
-
-    @staticmethod
-    def attach(self, application):        
-        print("onAttach successfully called")
-        application.registerActivityLifecycleCallbacks(self)
-
-        if self.application is not None:
-            self.application.registerActivityLifecycleCallbacks(self)
-
-# Create an instance of PythonLifecyclePythonWrapper
-lifecycle_wrapper = PythonLifecyclePythonWrapper()
+# Instantiate the LifecycleManager and register callbacks
+context = autoclass('com.chaquo.python.Python').getPlatform().getApplication()
+lifecycle_manager = LifecycleManager(context)
+lifecycle_manager.register_activity_callbacks()
