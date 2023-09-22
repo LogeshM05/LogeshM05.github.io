@@ -1,4 +1,5 @@
 import redis
+import json
 redis_host = 'redis-17278.c8.us-east-1-4.ec2.cloud.redislabs.com'
 redis_port = 17278
 redis_password = 'P9Dkhx3RktmNiBFFtOVMpzsH0uqQIWNr'
@@ -12,6 +13,16 @@ def redis_string():
         print(msg)    
     except Exception as e:
         print(e)
+
+def sendDataToPython(json_data):
+    # Parse the JSON data
+    student_list = json.loads(json_data)
+
+    # Process the student data
+    for student in student_list:
+        name = student["name"]
+        age = student["age"]
+
 
 def redis_json():
     try:
@@ -32,6 +43,16 @@ def redis_json():
        result = client.json().get('studentList')
        print(result)
     except Exception as e:
+        print(e)
+        
+
+    def redis_json_android(student_list):
+     try:
+       client = redis.StrictRedis(host=redis_host,port=redis_port,password=redis_password,decode_responses=True)
+       client.json().set('studentList2', '$', student_list)
+       result = client.json().get('studentList2')
+       print(result)
+     except Exception as e:
         print(e)
 
 
