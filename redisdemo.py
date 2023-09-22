@@ -45,7 +45,7 @@ def redis_json():
         print(e)
         
 
-    def redis_json_android(student_list):
+def redis_json_android(student_list):
      try:
        client = redis.StrictRedis(host=redis_host,port=redis_port,password=redis_password,decode_responses=True)
        client.json().set('studentList2', '$', student_list)
