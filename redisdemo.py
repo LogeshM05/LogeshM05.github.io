@@ -20,35 +20,33 @@ def sendDataToPython(json_data):
 
     redis_json_android(student_list)
 
-   
 
+# def redis_json():
+#     try:
+#        client = redis.StrictRedis(host=redis_host,port=redis_port,password=redis_password,decode_responses=True)
+#        student1 = {
+#             'name': "logesh",
+#             'Age': 22,
+#             'Location': "Chennai"
+#         }
+#        student2 = {
+#             'name': "Vishwa",
+#             'Age': 22,
+#             'Location': "Chennai"
+#         }
 
-def redis_json():
-    try:
-       client = redis.StrictRedis(host=redis_host,port=redis_port,password=redis_password,decode_responses=True)
-       student1 = {
-            'name': "logesh",
-            'Age': 22,
-            'Location': "Chennai"
-        }
-       student2 = {
-            'name': "Vishwa",
-            'Age': 22,
-            'Location': "Chennai"
-        }
-
-       studentList = [student1, student2]
-       client.json().set('studentList', '$', studentList)
-       result = client.json().get('studentList')
-       print(result)
-    except Exception as e:
-        print(e)
+#        studentList = [student1, student2]
+#        client.json().set('studentList', studentList)
+#        result = client.json().get('studentList')
+#        print(result)
+#     except Exception as e:
+#         print(e)
         
 
-def redis_json_android(student_list):
+def redis_json_android(studentList):
      try:
        client = redis.StrictRedis(host=redis_host,port=redis_port,password=redis_password,decode_responses=True)
-       client.json().set('studentList', '$', studentList)
+       client.json().set('studentList2', studentList)
        result = client.json().get('studentList2')
        print(result)
      except Exception as e:
