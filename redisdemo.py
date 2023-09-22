@@ -22,7 +22,7 @@ def redis_json():
             'Location': "Chennai"
         }
        student2 = {
-            'name': "krishna",
+            'name': "Vishwa",
             'Age': 22,
             'Location': "Chennai"
         }
