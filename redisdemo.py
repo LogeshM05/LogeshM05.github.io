@@ -18,10 +18,9 @@ def sendDataToPython(json_data):
     # Parse the JSON data
     student_list = json.loads(json_data)
 
-    # Process the student data
-    for student in student_list:
-        name = student["name"]
-        age = student["age"]
+    redis_json_android(student_list)
+
+   
 
 
 def redis_json():
