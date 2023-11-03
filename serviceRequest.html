@@ -274,9 +274,14 @@
 
                 switch (data) {
                     case 1:
-                        console.log("Dismiss Button clicked: Added messageHandler for iOS");
-                        window.webkit.messageHandlers.ResPopupClose.postMessage(JSON.stringify(btn1));
-                        // android.ResPopupClose(JSON.stringify(btn1));
+                       if (typeof window.webkit !== "undefined" && typeof window.webkit.messageHandlers.ResPopupClose !== "undefined") {
+                       // iOS platform
+                         console.log("Running on iOS platform");
+                         window.webkit.messageHandlers.ResPopupClose.postMessage(JSON.stringify(btn1));
+                       } else if (typeof android !== "undefined" && typeof android.ResPopupClose !== "undefined") {
+                        // Android platform
+                        console.log("Running on Android platform");
+                        android.ResPopupClose(JSON.stringify(btn1));
                         // window.webkit.messageHandlers.ResPopupClose.postMessage("Hello from JavaScript!");
                         break;
                     case 2:
