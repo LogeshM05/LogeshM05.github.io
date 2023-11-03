@@ -274,9 +274,9 @@
 
                 switch (data) {
                     case 1:
-                        android.ResPopupClose(JSON.stringify(btn1));
-                        window.webkit.messageHandlers.ResPopupClose.postMessage("Hello from JavaScript!");
+                        // android.ResPopupClose(JSON.stringify(btn1));
                         console.log("Dismiss Button clicked: Added messageHandler for iOS and Android");
+                        window.webkit.messageHandlers.ResPopupClose.postMessage("Hello from JavaScript!");
                         break;
                     case 2:
                         android.ResPopupClose(JSON.stringify(btn2));
