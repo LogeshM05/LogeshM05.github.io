@@ -221,6 +221,8 @@
     </div>
 
     <script>
+        var bodyHeight = document.body.scrollHeight;
+        window.webkit.messageHandlers.updateHeight.postMessage(bodyHeight);
         function myFunction(data) {
             try {
                 var btn1 = {
