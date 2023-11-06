@@ -222,7 +222,9 @@
 
     <script>
         var bodyHeight = document.body.scrollHeight;
-        window.webkit.messageHandlers.updateHeight.postMessage(bodyHeight);
+        if (typeof window.webkit !== "undefined" && typeof window.webkit.messageHandlers.ResPopupClose !== "undefined") {
+           window.webkit.messageHandlers.updateHeight.postMessage(bodyHeight);             
+        } 
         function myFunction(data) {
             try {
                 var btn1 = {
