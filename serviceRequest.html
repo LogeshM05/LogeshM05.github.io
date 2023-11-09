@@ -225,8 +225,6 @@
             var bodyHeight = document.body.scrollHeight;
             if (typeof window.webkit !== "undefined" && typeof window.webkit.messageHandlers.updateHeight !== "undefined") {
                 window.webkit.messageHandlers.updateHeight.postMessage(bodyHeight);
-            } else if (typeof android !== "undefined" && typeof android.updateHeight !== "undefined") {
-                android.updateHeight(bodyHeight);
             }
         });
 
