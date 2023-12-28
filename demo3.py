@@ -27,6 +27,4 @@ def location():
 def call_java_function():
     result = DemoActivity.fromPython()
     return result
-
-def get_activity_lifecycle():
     
