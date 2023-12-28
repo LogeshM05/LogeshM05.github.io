@@ -1,5 +1,6 @@
-from chaquopy import chaquopy_java_init
-chaquopy_java_init()
+# from chaquopy import chaquopy_java_init
+# chaquopy_java_init()
+from java import *
 from com.example.pythondemo import DemoActivity
 from android.app import ActivityLifecycleCallbacks, Application
 # import threading
