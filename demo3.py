@@ -6,7 +6,7 @@ from android.app import ActivityLifecycleCallbacks, Application
 # import threading
 # import time
 
-# current_lifecycle_status = None
+current_lifecycle_status = None
 
 class MyActivityLifecycleCallbacks(ActivityLifecycleCallbacks):
     def onActivityResumed(self, activity):
