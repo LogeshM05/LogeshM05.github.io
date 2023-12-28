@@ -1,4 +1,7 @@
+from chaquopy import chaquopy_java_init
 from com.example.pythondemo import DemoActivity
+
+chaquopy_java_init()
 
 def hello_world():
     return 'Hello from Flask!'
