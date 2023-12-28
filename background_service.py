@@ -1,5 +1,5 @@
 # background_service.py
-from android import Android
+from chaquo.python.android import Android
 import time
 
 android = Android()
