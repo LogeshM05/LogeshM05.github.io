@@ -5,7 +5,7 @@ from android.app import ActivityLifecycleCallbacks, Application
 # import time
 
 # current_lifecycle_status = None
-chaquopy_java_init()
+# chaquopy_java_init()
 
 class MyActivityLifecycleCallbacks(ActivityLifecycleCallbacks):
     def onActivityResumed(self, activity):
