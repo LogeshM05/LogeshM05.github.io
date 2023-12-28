@@ -17,21 +17,6 @@ class MyActivityLifecycleCallbacks(ActivityLifecycleCallbacks):
         global current_lifecycle_status
         current_lifecycle_status = "Paused"
 
-# Register the ActivityLifecycleCallbacks
-application = Application.getApplication()
-callbacks = MyActivityLifecycleCallbacks()
-application.registerActivityLifecycleCallbacks(callbacks)
-
-# Define a function to periodically check the lifecycle status
-def check_lifecycle_status():
-    while True:
-        time.sleep(5)  # Sleep for 5 seconds
-        print("Current Activity Lifecycle Status:", current_lifecycle_status)
-
-# Start the thread to periodically check the lifecycle status
-thread = threading.Thread(target=check_lifecycle_status)
-thread.start()
-
 def hello_world():
     return 'Hello from Flask!'
 
