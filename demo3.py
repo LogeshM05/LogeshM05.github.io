@@ -12,6 +12,4 @@ def location():
 
 def call_java_function():
     result = DemoActivity.fromPython()
-    print(result)
-
-call_java_function()
+    return result
