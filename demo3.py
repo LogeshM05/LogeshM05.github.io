@@ -1,8 +1,5 @@
 from com.example.pythondemo import DemoActivity
 
-# Initialize the Python interpreter
-AndroidPlatform.start_dir = None
-
 def hello_world():
     return 'Hello from Flask!'
 
