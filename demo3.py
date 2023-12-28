@@ -7,8 +7,6 @@ from android.app import ActivityLifecycleCallbacks, Application
 import threading
 import time
 
-chaquopy_java_init()
-
 current_lifecycle_status = None
 
 class MyActivityLifecycleCallbacks(ActivityLifecycleCallbacks):
