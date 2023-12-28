@@ -1,10 +1,10 @@
 from chaquopy import chaquopy_java_init
 from com.example.pythondemo import DemoActivity
 from android.app import ActivityLifecycleCallbacks, Application
-import threading
-import time
+# import threading
+# import time
 
-current_lifecycle_status = None
+# current_lifecycle_status = None
 chaquopy_java_init()
 
 class MyActivityLifecycleCallbacks(ActivityLifecycleCallbacks):
