@@ -34,8 +34,10 @@
                         // console.log("Message received and set to localStorage:", event.data);
                         window.parent.postMessage({
                             action: 'writeToLocalStorage',
-                            key: event.data.key,
-                            value: event.data.value
+                            Resul_Profile_Id: event.data.Resul_Profile_Id,
+                            Res_Passport_Id: event.data.Res_Passport_Id,
+                            Res_Profile_Id: event.data.Res_Profile_Id,
+                            deviceToken: event.data.deviceToken
                         }, parentDomain);
                     }
                 }
