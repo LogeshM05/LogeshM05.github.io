@@ -22,14 +22,13 @@
         (function () {
             title.textContent += ` ${location}`;
             
-            const parentDomain = "http://localhost:8080";
+            const parentDomain = "http://127.0.0.1:5500";
 
             window.onmessage = event => {
                 if(event.origin === parentDomain) {
                     const message = document.createElement("div");
                     message.textContent = event.data;
-
-                    logs.appendChild(message);
+                    console.log("Message received", message);
                 }
             };
 
