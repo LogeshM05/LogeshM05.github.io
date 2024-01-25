@@ -28,7 +28,7 @@
                 if(event.origin === parentDomain) {
                     const message = document.createElement("div");
                     message.textContent = event.data;
-                    console.log("Message received", event.key);
+                    console.log("Message received", event.data.key);
                     if (event.data.action === 'writeToLocalStorage') {
                         // console.log("Message received and set to localStorage:", event.data);
                         // window.parent.postMessage({
