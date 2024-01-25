@@ -22,7 +22,7 @@
         (function () {
             title.textContent += ` ${location}`;
             
-            const parentDomain = "http://127.0.0.1:5507/";
+            const parentDomain = "http://127.0.0.1:5507";
 
             window.onmessage = event => {
                 if(event.origin === parentDomain) {
