@@ -22,11 +22,12 @@
         (function () {
             title.textContent += ` ${location}`;
             
-            const parentDomain = "https://conversion.resulticks.net/";
+            const parentDomain = "https://conversion.resulticks.net";
+            const parentDomain1 = "https://resulticks.net"
 
             window.onmessage = event => {
                 console.log("Message Received");
-                if(event.origin === parentDomain) {
+                if(event.origin.contains(parentDomain)) {
                     console.log("Domain matches")
                     const message = document.createElement("div");
                     message.textContent = event.data;
