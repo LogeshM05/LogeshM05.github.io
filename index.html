@@ -28,6 +28,7 @@
                 if(event.origin === parentDomain) {
                     const message = document.createElement("div");
                     message.textContent = event.data;
+                    const eventData = JSON.parse(event.data)
                     if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received and set to localStorage:", event.data);
                         // window.parent.postMessage({
@@ -38,9 +39,9 @@
                         //     deviceToken: event.data.deviceToken
                         // }, parentDomain);
                         window.parent.postMessage({
-                            action: event.data.action,
-                            key: event.data.key,
-                            value: event.data.value
+                            action: eventData.action,
+                            key: eventData.key,
+                            value: eventData.value
                         }, parentDomain);
                     }
                 }
