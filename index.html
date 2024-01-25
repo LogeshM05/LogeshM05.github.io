@@ -29,7 +29,7 @@
                     const message = document.createElement("div");
                     message.textContent = event.data;
                     console.log("Message received", message);
-                    if (event.data.action === 'writeToLocalStorage') {
+                    // if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received and set to localStorage:", event.data);
                         // window.parent.postMessage({
                         //     action: 'writeToLocalStorage',
@@ -39,10 +39,9 @@
                         //     deviceToken: event.data.deviceToken
                         // }, parentDomain);
                         window.parent.postMessage({
-                            action: 'writeToLocalStorage',
                             data: event.data.data
                         }, parentDomain);
-                    }
+                    // }
                 }
             };
 
