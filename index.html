@@ -40,11 +40,6 @@
                         //     Res_Profile_Id: event.data.Res_Profile_Id,
                         //     deviceToken: event.data.deviceToken
                         // }, parentDomain);
-                        window.parent.postMessage({
-                            action: eventData.action,
-                            key: eventData.key,
-                            value: eventData.value
-                        }, parentDomain);
                     }
                 }
             };
