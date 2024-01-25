@@ -22,14 +22,14 @@
         (function () {
             title.textContent += ` ${location}`;
             
-            const parentDomain = "http://127.0.0.1:5507";
+            const parentDomain = "http://127.0.0.1:5500";
 
             window.onmessage = event => {
                 if(event.origin === parentDomain) {
                     const message = document.createElement("div");
                     message.textContent = event.data;
                     console.log("Message received", message);
-                    // if (event.data.action === 'writeToLocalStorage') {
+                    if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received and set to localStorage:", event.data);
                         // window.parent.postMessage({
                         //     action: 'writeToLocalStorage',
@@ -39,9 +39,11 @@
                         //     deviceToken: event.data.deviceToken
                         // }, parentDomain);
                         window.parent.postMessage({
-                            data: event.data.data
+                            data: event.data.data,
+                            key: event.data.key,
+                            value: event.data.value
                         }, parentDomain);
-                    // }
+                    }
                 }
             };
 
