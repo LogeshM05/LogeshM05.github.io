@@ -27,7 +27,7 @@
 
             window.onmessage = event => {
                 console.log("Message Received");
-                if(event.origin.contains(parentDomain)) {
+                if(event.origin === parentDomain) {
                     console.log("Domain matches")
                     const message = document.createElement("div");
                     message.textContent = event.data;
