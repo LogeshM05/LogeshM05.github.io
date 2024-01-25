@@ -31,7 +31,7 @@
                     console.log("Domain matches")
 
                     let eventData = event.data;
-                    console.log("eventdata", eventdata);
+                    console.log("eventdata", eventData);
                     if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received on iframe site:", event.data);
                         localStorage.setItem('Resul_Profile_ID', eventData.profileId);
