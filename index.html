@@ -32,7 +32,9 @@
                     let eventData = event.data;
                     if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received on iframe site:", event.data);
-                        localStorage.setItem(eventData.key, eventData.value);
+                        localStorage.setItem('Resul_Profile_ID', eventData.Resul_Profile_Id);
+                        localStorage.setItem('Res_Passport_Id', eventData.Res_Passport_Id);
+                        localStorage.setItem('deviceToken', eventData.deviceToken);
                         // window.parent.postMessage({
                         //     action: 'writeToLocalStorage',
                         //     Resul_Profile_Id: event.data.Resul_Profile_Id,
