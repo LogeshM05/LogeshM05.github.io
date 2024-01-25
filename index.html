@@ -29,10 +29,9 @@
                 console.log("Message Received");
                 if(event.origin === parentDomain) {
                     console.log("Domain matches")
-                    const message = document.createElement("div");
-                    message.textContent = event.data;
 
                     let eventData = event.data;
+                    console.log("eventdata", eventdata);
                     if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received on iframe site:", event.data);
                         localStorage.setItem('Resul_Profile_ID', eventData.profileId);
