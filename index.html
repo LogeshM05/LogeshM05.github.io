@@ -34,8 +34,8 @@
                     console.log("eventdata", eventData);
                     if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received on iframe site:", event.data);
-                        localStorage.setItem('domain', eventData.domain);
-                        localStorage.setItem('product', eventData.product);
+                        localStorage.setItem('passportId', eventData.passportId);
+                        localStorage.setItem('profileId', eventData.profileId);
                         // window.parent.postMessage({
                         //     action: 'writeToLocalStorage',
                         //     Resul_Profile_Id: event.data.Resul_Profile_Id,
