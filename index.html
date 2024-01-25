@@ -39,7 +39,7 @@
                         //     deviceToken: event.data.deviceToken
                         // }, parentDomain);
                         window.parent.postMessage({
-                            data: event.data.data,
+                            action: event.data.action,
                             key: event.data.key,
                             value: event.data.value
                         }, parentDomain);
