@@ -25,7 +25,9 @@
             const parentDomain = "https://conversion.resulticks.net/";
 
             window.onmessage = event => {
+                console.log("Message Received");
                 if(event.origin === parentDomain) {
+                    console.log("Domain matches")
                     const message = document.createElement("div");
                     message.textContent = event.data;
 
