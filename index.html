@@ -86,8 +86,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             sendBtn.onclick = event => {
                 window.parent.postMessage(messageTxt.value, parentDomain);
             }
-    <script>
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVZMH81TNP"></script>
+        })();
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVZMH81TNP"></script>
     <script>
         const eventData = {
               event_category: 'Custom Category',
@@ -97,8 +98,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             };
             gtag('event', 'Res_Error', eventData);
             console.log("Event data sent"); 
-    </script>
-        })();
     </script>
 </body>
 </html>
