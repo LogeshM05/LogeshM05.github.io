@@ -34,8 +34,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <input type="text" id="messageTxt" placeholder="Message to parent">
     <button id="sendBtn">Send to parent</button>
-    <button id="sendCustomEvent">Send custom Event</button>
-
+    <button id="resEvent1">Send Res_Event_Success</button>
+    <button id="resEvent2">Send Res_Event_Fail</button>
 
     <div id="logs"></div>
 
@@ -45,6 +45,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             window.dataLayer.push({
                 'event': 'registrationComplete'
             });
+
+            let resBtn1 = document.getElementById("resEvent1");
+            let resBtn2 = document.getElementById("resEvent2");
+            resBtn1.addEventListener('click', function() {
+                window.dataLayer.push({
+                    'event': 'Res_Event_Success'
+                });
+            })
+            resBtn2.addEventListener('click', function() {
+                window.dataLayer.push({
+                    'event': 'Res_Event_Fail'
+                });
+            })
             
             title.textContent += ` ${location}`;
             
