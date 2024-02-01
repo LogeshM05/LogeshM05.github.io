@@ -44,15 +44,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <script>
         (function () {
-
-            const eventData = {
-              event_category: 'Custom Category',
-              event_action: 'Custom Action',
-              event_label: 'Custom Label',
-              value: 42, // Optional numeric value
-            };
-            gtag('event', 'Res_Error', eventData);
-            console.log("Event data sent"); 
             // const sendEventBtn = document.getElementById('sendCustomEvent');
             // sendEventBtn.addEventListener('click', function() {
             //     window.dataLayer = window.dataLayer || [];
@@ -95,6 +86,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             sendBtn.onclick = event => {
                 window.parent.postMessage(messageTxt.value, parentDomain);
             }
+    <script>
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVZMH81TNP"></script>
+    <script>
+        const eventData = {
+              event_category: 'Custom Category',
+              event_action: 'Custom Action',
+              event_label: 'Custom Label',
+              value: 42, // Optional numeric value
+            };
+            gtag('event', 'Res_Error', eventData);
+            console.log("Event data sent"); 
+    </script>
         })();
     </script>
 </body>
