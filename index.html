@@ -27,6 +27,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <input type="text" id="messageTxt" placeholder="Message to parent">
     <button id="sendBtn">Send to parent</button>
+    <button id="sendCustomEvent">Send custom Event</button>
+
 
     <div id="logs"></div>
 
@@ -41,14 +43,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             // };
             // gtag('event', 'Res_Error', eventData);
             console.log("Event data sent"); 
-
-            window.dataLayer = window.dataLayer || [];
+            const sendEventBtn = document.getElementById('sendCustomEvent');
+            sendEventBtn.addEventListener('click', function() {
+                window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
                     event: 'Res_Error',
                     category: 'exampleCategory',
                     action: 'exampleAction',
                     label: 'exampleLabel',
                     value: 1 // Example value
+                }); 
             });
             
             title.textContent += ` ${location}`;
