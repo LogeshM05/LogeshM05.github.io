@@ -62,11 +62,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             title.textContent += ` ${location}`;
             
             const parentDomain = "https://conversion.resulticks.net";
-            const parentDomain1 = "https://resulticks.net"
+            const parentDomain1 = "https://karthikrathinavel.github.io"
 
             window.onmessage = event => {
                 console.log("Message Received");
-                if(event.origin === parentDomain) {
+                if(event.origin === parentDomain || event.origin === parentDomain1) {
                     console.log("Domain matches")
 
                     let eventData = event.data;
