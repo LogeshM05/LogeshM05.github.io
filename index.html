@@ -75,11 +75,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         console.log("Message received on iframe site:", event.data);
                         // localStorage.setItem(eventData.currentDomain , {passportId: eventData.passportId, profileId: eventData.profileId, tenantShortCode: eventData.tenantShortCode});
                         // document.cookie = `domainName= ${eventData.currentDomain}; passportId=${eventData.passportId}; profileId: ${eventData.profileId}; tenantShortCode: ${eventData.tenantShortCode}}`;
-                        localStorage.setItem(eventData.currentDomain, JSON.stringify({
-                            passportId: eventData.passportId,
-                            profileId: eventData.profileId,
-                            tenantShortCode: eventData.tenantShortCode
-                        }));
+                        // localStorage.setItem(eventData.currentDomain, JSON.stringify({
+                        //     passportId: eventData.passportId,
+                        //     profileId: eventData.profileId,
+                        //     tenantShortCode: eventData.tenantShortCode
+                        // }));
+                        localStorage.setItem('domain', eventData.currentDomain);
+                        localStorage.setItem('pId', eventData.passportId);
+                        localStorage.setItem('prId', eventData.profileId);
+                        localStorage.setItem('tsc', eventData.tenantShortCode);
                     }
                 }
             };
