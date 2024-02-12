@@ -73,8 +73,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     console.log("eventdata", eventData);
                     if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received on iframe site:", event.data);
-                        localStorage.setItem(eventData.currentDomain , {passportId: eventData.passportId, profileId: eventData.profileId, tenantShortCode: eventData.tenantShortCode});
-                        document.cookie = `domainName= ${eventData.currentDomain}; passportId=${eventData.passportId}; profileId: ${eventData.profileId}; tenantShortCode: ${eventData.tenantShortCode}}`;
+                        // localStorage.setItem(eventData.currentDomain , {passportId: eventData.passportId, profileId: eventData.profileId, tenantShortCode: eventData.tenantShortCode});
+                        // document.cookie = `domainName= ${eventData.currentDomain}; passportId=${eventData.passportId}; profileId: ${eventData.profileId}; tenantShortCode: ${eventData.tenantShortCode}}`;
+                        localStorage.setItem(eventData.currentDomain, JSON.stringify({
+                            passportId: eventData.passportId,
+                            profileId: eventData.profileId,
+                            tenantShortCode: eventData.tenantShortCode
+                        }));
+
+    // Constructing the cookie string
+    let cookieString = `domainName=${eventData.currentDomain};`;
+    cookieString += `passportId=${eventData.passportId};`;
+    cookieString += `profileId=${eventData.profileId};`;
+    cookieString += `tenantShortCode=${eventData.tenantShortCode};`;
+    cookieString += `expires=Thu, 01 Jan 2026 00:00:00 UTC;`; // Set expiration date if needed
+    cookieString += `path=/;`; // Set path if needed
+    // Add additional cookie attributes as needed
+
+    document.cookie = cookieString;
                     }
                 }
             };
