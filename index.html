@@ -76,11 +76,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         localStorage.setItem('domain', eventData.currentDomain);
                         localStorage.setItem('pId', eventData.passportId);
                         localStorage.setItem('prId', eventData.profileId);
-                        window.postMessage("data", window.location.href);
                     }
-                } else if(event.origin == window.location.href) {
-                    console.log("same origin set value");
-                    localStorage.setItem("value", "data");
                 }
             };
 
