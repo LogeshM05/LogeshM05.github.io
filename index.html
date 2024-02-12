@@ -63,7 +63,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             const parentDomain = "https://conversion.resulticks.net";
             const parentDomain1 = "https://karthikrathinavel.github.io"
-
+            let dataArray = [];
             window.onmessage = event => {
                 console.log("Message Received");
                 if(event.origin === parentDomain || event.origin === parentDomain1) {
@@ -76,14 +76,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         localStorage.setItem('domain', eventData.currentDomain);
                         localStorage.setItem('pId', eventData.passportId);
                         localStorage.setItem('prId', eventData.profileId);
+                        dataArray.push({
+                            domain: eventData.currentDomain,
+                            pId: eventData.passportId,
+                            prId: eventData.profileId
+                        });
                     }
                 }
                 if (event.origin === 'https://karthikrathinavel.github.io') {
-                    event.source.postMessage({
-                        action: 'sendData',
-                        d1: "d1",
-                        d2: "d2"
-                    }, event.origin);
+                    event.source.postMessage(dataArray, event.origin);
                 }
             };
 
