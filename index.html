@@ -78,6 +78,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         localStorage.setItem('prId', eventData.profileId);
                     }
                 }
+                if (event.origin === 'https://vishwasoundararajan.github.io' && event.data.action === 'requestData') {
+                    event.source.postMessage({
+                        action: 'sendData',
+                        d1: "d1",
+                        d2: "d2"
+                    }, event.origin);
+                }
             };
 
             sendBtn.onclick = event => {
