@@ -74,14 +74,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     if (event.data.action === 'writeToLocalStorage') {
                         console.log("Message received on iframe site:", event.data);
                         localStorage.setItem(eventData.currentDomain , {passportId: eventData.passportId, profileId: eventData.profileId, tenantShortCode: eventData.tenantShortCode});
-                        // localStorage.setItem('profileId', eventData.profileId);
-                        // window.parent.postMessage({
-                        //     action: 'writeToLocalStorage',
-                        //     Resul_Profile_Id: event.data.Resul_Profile_Id,
-                        //     Res_Passport_Id: event.data.Res_Passport_Id,
-                        //     Res_Profile_Id: event.data.Res_Profile_Id,
-                        //     deviceToken: event.data.deviceToken
-                        // }, parentDomain);
+                        document.cookie = `domainName= ${eventData.currentDomain}; passportId=${eventData.passportId}; profileId: ${eventData.profileId}; tenantShortCode: ${eventData.tenantShortCode}}`;
                     }
                 }
             };
