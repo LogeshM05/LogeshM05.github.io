@@ -76,17 +76,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         localStorage.setItem('domain', eventData.currentDomain);
                         localStorage.setItem('pId', eventData.passportId);
                         localStorage.setItem('prId', eventData.profileId);
-                        dataArray.push({
-                            domain: eventData.currentDomain,
-                            pId: eventData.passportId,
-                            prId: eventData.profileId
-                        });
-                        console.log(dataArray);
                     }
                 }
-                if (event.origin === 'https://karthikrathinavel.github.io') {
-                    event.source.postMessage(dataArray, event.origin);
-                }
+                // if (event.origin === 'https://karthikrathinavel.github.io') {
+                //     event.source.postMessage(dataArray, event.origin);
+                // }
             };
 
             sendBtn.onclick = event => {
