@@ -242,35 +242,48 @@
          line-height: initial;}
       </style>
        <script>
-         document.addEventListener('DOMContentLoaded', function() {try{
-         android.dynamicHeight(""+getComputedStyle(document.querySelector("body")).height);
-         }catch(err){}
-         });
+         function myFunction() {
+       try
+       {
 
-         function myFunction(data) {
-
-         try
-         {
          var btn1 = {
-            "actionName": "Dismiss",
+           "actionName": "Tap",
+           "actionTextColor": "#FFFFFF",
+           "actionBgColor": "#0096FD",
+           "actionType": "smartlink1",
+           "navigationScreen":"[[navigationScreen]]",
+           "fragmentName":"[[fragmentName]]",
+           "activityName":"[[navigationScreen]]",
+           "customParams":"[[customParams]]",
+           "MobileFriendlyUrl":"[[MobileFriendlyUrl]]",
+           "actionId": 2
+         };
+         if (typeof window.webkit !== "undefined" && typeof window.webkit.messageHandlers.ResPopupClose !== "undefined") {
+         // iOS platform
+           console.log("Running on iOS platform");
+           window.webkit.messageHandlers.ResPopupClose.postMessage(JSON.stringify(btn1));
+         } else if (typeof android !== "undefined" && typeof android.ResPopupClose !== "undefined") {
+          // Android platform
+          var btn1 = {
+            "actionName": "Tap",
             "actionTextColor": "#FFFFFF",
             "actionBgColor": "#0096FD",
-            "actionType": "dismiss",
-            "actionId": 3
+            "actionType": "smartlink1",
+            "navigationScreen":"[[navigationScreen]]",
+            "fragmentName":"[[fragmentName]]",
+            "activityName":"[[navigationScreen]]",
+            "customParams":"[[customParams]]",
+            "mobileFriendlyUrl":"[[mobileFriendlyUrl]]",
+            "actionId": 2
           };
-
-         switch(data)
-         {
-          case 1:
+          console.log("Running on Android platform");
           android.ResPopupClose(JSON.stringify(btn1));
-          break;
-
          }
 
-         }
-         catch(err) {
-         }
-         }
+       }
+       catch(err) {
+       }
+       }
 
       </script>
    </head>
@@ -380,7 +393,7 @@
                                               >
                                               <tbody>
                                                  <tr style="border-collapse: collapse">
-                                                   <td align="left" valign="top" border="0"style="vertical-align: top; padding-left: 10px;padding-top: 15px;padding-bottom: 15px;"><img src="exclamatory.svg" alt="Exclamatory" width="30" height="30"></td>
+                                                   <td align="left" valign="top" border="0"style="vertical-align: top; padding-left: 10px;padding-top: 15px;padding-bottom: 15px;"><img src="images/exclamatory.svg" alt="Exclamatory" width="30" height="30"></td>
                                                    <td style="color: #ffffff; padding-top: 15px; padding-bottom: 15px;">
                                                       <h1 style="
                                                          font-size: 17px;
