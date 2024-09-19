@@ -265,17 +265,14 @@
          } else if (typeof android !== "undefined" && typeof android.ResPopupClose !== "undefined") {
           // Android platform
           var btn1 = {
-            "actionName": "Tap",
-            "actionTextColor": "#FFFFFF",
-            "actionBgColor": "#0096FD",
-            "actionType": "smartlink1",
-            "navigationScreen":"[[navigationScreen]]",
-            "fragmentName":"[[fragmentName]]",
-            "activityName":"[[navigationScreen]]",
-            "customParams":"[[customParams]]",
-            "mobileFriendlyUrl":"[[mobileFriendlyUrl]]",
-            "actionId": 2
-          };
+  "actionName": "Dismiss",
+  "actionTextColor": "#FFFFFF",
+  "actionBgColor": "#0096FD",
+  "actionType": "dismiss",
+  "actionId": 3,
+  "data": "{"formID": 80,"appID":"29ff7ebd-1912-4961-b86c-a2bb594ab821","actionBgColor":"#0096FD","actionType":"smartlink1","navigationScreen":"","actionId":2,"status":"fail"}"
+};
+
           console.log("Running on Android platform");
 formNotSubmit(btn1)
           // android.ResPopupClose(JSON.stringify(btn1));
