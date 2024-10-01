@@ -1,105 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
+
 <head>
-    <meta name="google-signin-client_id" content="795171808898-esffb3asbi3pnqk1foj0ei1qspqji6vn.apps.googleusercontent.com">
-    <!-- Google Tag Manager container-->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PWWTRQ9R');</script>
-<!-- End Google Tag Manager -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESUL</title>
-    <style>
-        #logs div {
-            border-bottom: 0.1em solid red;
-        }
-    </style>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-RVZMH81TNP');
-</script>
-    <!--Google-->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- So that mobile will display zoomed in -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- enable media queries for windows phone 8 -->
+	<meta name="format-detection" content="telephone=no">
+	<!-- disable auto telephone linking in iOS -->
+	<title>Vision Bank - Credit card</title>
+	<style type="text/css">
+		body {
+	margin: 0 auto !important;
+	padding: 0 !important;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+table {
+	border-spacing: 0 !important;
+	border-collapse: collapse !important;
+	/* table-layout: fixed !important; */
+	margin: 0 auto !important;
+	mso-table-lspace: 0pt;
+	mso-table-rspace: 0pt;
+}
+table td {
+	border-collapse: collapse;
+	mso-table-lspace: 0pt !important;
+	mso-table-rspace: 0pt !important;
+}
+img {
+	-ms-interpolation-mode: bicubic;
+}
+.leftImage{width:45%;}
+@media only screen and (max-width: 540px) {
+	table[class="MainContainer"]{
+		width: 100% !important;
+		height: auto !important;
+	}
+	.leftImage{width:100% !important;
+    max-width: 100% !important;}
+	}
+	</style>
 </head>
-<body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWWTRQ9R"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    
-    <h2 id="title">RESUL SDK Integration via gTAG</h2>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div> <!--Google signin btn-->
-    <a href="#" onclick="signOut();">Sign out</a>
 
-    <div id="logs"></div>
-
-    <script>
-        (function () {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                'event': 'registrationComplete'
-            });
-
-            let resBtn1 = document.getElementById("resEvent1");
-            let resBtn2 = document.getElementById("resEvent2");
-            resBtn1.addEventListener('click', function() {
-                window.dataLayer.push({
-                    'event': 'Res_Event_Success'
-                });
-            })
-            resBtn2.addEventListener('click', function() {
-                window.dataLayer.push({
-                    'event': 'Res_Event_Fail'
-                });
-            })
-            
-            title.textContent += ` ${location}`;
-            
-            const parentDomain = "https://conversion.resulticks.net";
-            const parentDomain1 = "https://karthikrathinavel.github.io"
-            let dataArray = [];
-            window.onmessage = event => {
-                console.log("Message Received");
-                if(event.origin === parentDomain || event.origin === parentDomain1) {
-                    console.log("Domain matches")
-
-                    let eventData = event.data;
-                    console.log("eventdata", eventData);
-                    if (event.data.action === 'writeToLocalStorage') {
-                        console.log("Message received on iframe site:", event.data);
-                        localStorage.setItem('domain', eventData.currentDomain);
-                        localStorage.setItem('pId', eventData.passportId);
-                        localStorage.setItem('prId', eventData.profileId);
-                    }
-                }
-                // if (event.origin === 'https://karthikrathinavel.github.io') {
-                //     event.source.postMessage(dataArray, event.origin);
-                // }
-            };
-
-            sendBtn.onclick = event => {
-                window.parent.postMessage(messageTxt.value, parentDomain);
-            }
-        })();
-        function onSignIn(googleUser) {
-          var profile = googleUser.getBasicProfile();
-          console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-          console.log('Name: ' + profile.getName());
-          console.log('Image URL: ' + profile.getImageUrl());
-          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        }
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-              console.log('User signed out.');
-            });
-        }
-    </script>
+<body style="margin:0; padding:0;" border="0" bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+		<tbody>
+			<tr>
+				<td>
+					<!--content starting-->
+					<table width="600" cellspacing="0" cellpadding="0" align="center" class="MainContainer" bgcolor="#f6f7f9" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="border:1px solid #dddedf;">
+						<tbody>
+							<!--Body-->
+							<tr>
+								<td>
+								<table width="600" border="0" cellspacing="0" cellpadding="0" align="center" class="MainContainer"leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+									<tbody>
+										<tr>
+											<td>
+											<img src="Images/banner.jpg" style="display:block">
+											</td>
+										</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								<table width="450" border="0" cellspacing="0" cellpadding="0" align="center" class="MainContainer" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+									<tbody>
+										<tr>
+											<td>
+											<p style="font-size: 14pt;color: #545555;font-weight: normal;font-family: arial;padding-left: 0in;margin: auto;padding-top: 0.1in;padding-right: 0.1in;padding-bottom:0in;line-height: 22pt;text-align: center;">
+											Everybody lives their own way with different tastes and expenses. The credit card that's right for you will offer services and benefits ideal for your lifestyle. 
+											We have a wide range of cards, to pick one that matches best for your shopping requirements.
+											</p>
+											</td>
+										</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding-top:0.4in;padding-bottom:0.4in">
+								<table width="550" border="0" cellspacing="0" cellpadding="0" align="center" >
+									<tbody>
+										<tr>
+											<td style="text-align:center" align="center">
+											<a href="https://visionbank.resulticks.net" target="_blank"><img src="Images/btn.jpg" style="display:block;margin:auto;"></a>
+											</td>
+										</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding-top:0in;padding-bottom:0.1in">
+								<table width="600" border="0" cellspacing="0" cellpadding="0" align="center" >
+									<tbody>
+										<tr>
+											<td style="text-align:center;border-top:1px solid #dddedf;" align="center">
+											</td>
+										</tr>
+										<tr>
+											<td style="text-align:center;padding-top:0.1in;" align="center">
+											<p style="color:#c5c6c6;font-size:14px;font-family:Arial;">Copyright © 2017 Vision Bank. All Rights Reserved.</p>
+											</td>
+										</tr>
+								</table>
+								</td>
+							</tr>
+					</table>
+				</td>
+			</tr>
+	</table>
 </body>
+
 </html>
