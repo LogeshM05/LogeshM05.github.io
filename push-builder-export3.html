@@ -1,0 +1,232 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Exported Design</title>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        html, body {
+          width: 100%;
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #f3f4f6;
+        }
+        .siva {
+          font-size: 36px;
+        }
+        .builder-preview {
+          position: relative;
+          margin: 0 auto;
+          background-color: #ffffff;
+          background-image: none;
+          background-size: cover;
+          background-position: center;
+          overflow: hidden;
+          width: 375px;
+          min-height: 667px;
+          max-width: 100%;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          border-radius: 0.5rem;
+        }
+
+        .content-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          min-height: inherit;
+        }
+
+        @media (max-width: 640px) {
+          body {
+            padding: 1rem;
+          }
+
+          .builder-preview {
+            min-height: calc(100vh - 2rem);
+            border-radius: 0.25rem;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+        }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+
+        @keyframes flash {
+          0%, 50%, 100% { opacity: 1; }
+          25%, 75% { opacity: 0.5; }
+        }
+
+        .bounce { animation: bounce 2s infinite; }
+        .pulse { animation: pulse 2s infinite; }
+        .flash { animation: flash 2s infinite; }
+      </style>
+    </head>
+    <body>
+      <div class="container builder-preview siva">
+        <div class="content-wrapper">
+          <button 
+      id="button-97e3e335-c0ea-465c-b7db-5487657ba725"
+      class="button-component "
+      style="position: absolute; left: 126px; top: 217px; width: 100px; height: 50px; transform-origin: center center; z-index: 1; overflow: visible; box-sizing: border-box; background-color: #3B82F6; color: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 8px 16px 8px 16px; font-size: 16px; font-family: inherit; font-weight: normal; font-style: normal; text-decoration: none; cursor: pointer; transition: all 0.2s ease-in-out; border: none; border-radius: 0; animation: none; white-space: nowrap; word-break: break-word; outline: none; user-select: none; text-align: center; line-height: 1.5; appearance: none; -webkit-appearance: none; -moz-appearance: none; margin: 0"
+      data-button-info='{&quot;actionType&quot;:&quot;dismiss&quot;,&quot;actionId&quot;:3,&quot;url&quot;:&quot;&quot;,&quot;duration&quot;:&quot;&quot;,&quot;mobilefriendlyUrl&quot;:&quot;&quot;,&quot;activityName&quot;:&quot;&quot;,&quot;fragmentName&quot;:&quot;&quot;,&quot;customParam&quot;:&quot;&quot;}'
+    >
+      <div style="display: flex; align-items: center; width: 100%; height: 100%; justify-content: center; gap: 8px">
+        <span>Dismiss</span>
+      </div>
+    </button>
+
+    <script>
+      (function() {
+        const button = document.getElementById('button-97e3e335-c0ea-465c-b7db-5487657ba725');
+        if (!button) return;
+
+        const status = true
+
+        if(status) {
+          alert("web")
+        } else {
+          alert("mobile")
+         }
+
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          try {
+            const buttonData = JSON.parse(
+              this.getAttribute('data-button-info')
+                .replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'")
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+            );
+
+            console.log("button data: ", buttonData)
+
+            // window.parent.postMessage(buttonData, "*"); // No specific origin
+
+            //  window.ReWebSDK.methods.clientApiService.inAppNotificationTracking(action, '8', msgId).then(response => {
+            //         console.log("handle success")
+            //         }).catch(err => {
+            //                             console.error("handle error: ", err);
+            //         });
+
+              //  window.ReWebSDK.methods.clientApiService.inAppNotificationTracking(buttonData.actionType, buttonData.actionId, uniqueId).then(response => {
+              //       console.log("handle success")
+              //       }).catch(err => {
+              //       console.error("handle error: ", err);
+              //       });
+              // return
+
+            console.log("web and continue")
+
+            // Handle iOS platform
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.ResPopupClose) {
+              window.webkit.messageHandlers.ResPopupClose.postMessage(JSON.stringify(buttonData));
+            }
+            // Handle Android platform
+            else if (window.android && window.android.ResPopupClose) {
+              window.android.ResPopupClose(JSON.stringify(buttonData));
+            }
+            // Handle web platform
+            else if (buttonData.actionType === 'weburl' && buttonData.url) {
+                console.log("SP")
+                   window.open(buttonData.url, '_blank');
+            }
+          } catch (err) {
+            console.error('Error handling button click:', err);
+          }
+        });
+      })();
+    </script>
+
+    <style>
+      #button-97e3e335-c0ea-465c-b7db-5487657ba725 {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      
+      #button-97e3e335-c0ea-465c-b7db-5487657ba725:hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+      }
+      
+      #button-97e3e335-c0ea-465c-b7db-5487657ba725:active {
+        transform: translateY(0);
+      }
+      
+      #button-97e3e335-c0ea-465c-b7db-5487657ba725.bounce {
+        animation: bounce-button-97e3e335-c0ea-465c-b7db-5487657ba725 2s infinite;
+      }
+      
+      #button-97e3e335-c0ea-465c-b7db-5487657ba725.pulse {
+        animation: pulse-button-97e3e335-c0ea-465c-b7db-5487657ba725 2s infinite;
+      }
+      
+      #button-97e3e335-c0ea-465c-b7db-5487657ba725.flash {
+        animation: flash-button-97e3e335-c0ea-465c-b7db-5487657ba725 2s infinite;
+      }
+      
+      @keyframes bounce-button-97e3e335-c0ea-465c-b7db-5487657ba725 {
+        0%, 100% { transform: translateY(0) ; }
+        50% { transform: translateY(-5px) ; }
+      }
+      
+      @keyframes pulse-button-97e3e335-c0ea-465c-b7db-5487657ba725 {
+        0%, 100% { transform: scale(1) ; }
+        50% { transform: scale(1.05) ; }
+      }
+      
+      @keyframes flash-button-97e3e335-c0ea-465c-b7db-5487657ba725 {
+        0%, 50%, 100% { opacity: 1; }
+        25%, 75% { opacity: 0.5; }
+      }
+
+      @media (hover: hover) {
+        #button-97e3e335-c0ea-465c-b7db-5487657ba725:hover {
+          filter: brightness(1.1);
+          transform: translateY(-1px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #button-97e3e335-c0ea-465c-b7db-5487657ba725 {
+          transition: none;
+          animation: none;
+        }
+        #button-97e3e335-c0ea-465c-b7db-5487657ba725:hover {
+          transform: none;
+        }
+      }
+    </style>
+        </div>
+      </div>
+    </body>
+    </html>
+  
