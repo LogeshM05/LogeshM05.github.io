@@ -22,30 +22,47 @@
 
 <script>
   function myFunction(data) {
+       try
+       {
 
-try
-{
-var btn1 = {
-   "actionName": "Dismiss",
-   "actionTextColor": "#FFFFFF",
-   "actionBgColor": "#0096FD",
-   "actionType": "dismiss",
-   "actionId": 3
- };
+         var btn1 = {
+           "actionName": "Tap",
+           "actionTextColor": "#FFFFFF",
+           "actionBgColor": "#0096FD",
+           "actionType": "smartlink1",
+           "navigationScreen":"[[navigationScreen]]",
+           "fragmentName":"[[fragmentName]]",
+           "activityName":"[[navigationScreen]]",
+           "customParams":"[[customParams]]",
+           "MobileFriendlyUrl":"[[MobileFriendlyUrl]]",
+           "actionId": 2
+         };
+         if (typeof window.webkit !== "undefined" && typeof window.webkit.messageHandlers.ResPopupClose !== "undefined") {
+         // iOS platform
+           console.log("Running on iOS platform");
+           window.webkit.messageHandlers.ResPopupClose.postMessage(JSON.stringify(btn1));
+         } else if (typeof android !== "undefined" && typeof android.ResPopupClose !== "undefined") {
+          // Android platform
+          var btn1 = {
+            "actionName": "Tap",
+            "actionTextColor": "#FFFFFF",
+            "actionBgColor": "#0096FD",
+            "actionType": "smartlink1",
+            "navigationScreen":"[[navigationScreen]]",
+            "fragmentName":"[[fragmentName]]",
+            "activityName":"[[navigationScreen]]",
+            "customParams":"[[customParams]]",
+            "mobileFriendlyUrl":"[[mobileFriendlyUrl]]",
+            "actionId": 2
+          };
+          console.log("Running on Android platform");
+          android.ResPopupClose(JSON.stringify(btn1));
+         }
 
-switch(data)
-{
- case 1:
- android.ResPopupClose(JSON.stringify(btn1));
- break;
-
-}
-
-}
-catch(err) {
-}
-}
-
+       }
+       catch(err) {
+       }
+       }
 
 </script>
     
