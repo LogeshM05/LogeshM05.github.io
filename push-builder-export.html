@@ -21,46 +21,31 @@
       </style>
 
 <script>
-  function myFunction() {
-     try {
-// Declare the button action for iOS platform
+  function myFunction(data) {
+
+try
+{
 var btn1 = {
-"actionName": "Tap",
-"actionTextColor": "#FFFFFF",
-"actionBgColor": "#0096FD",
-"actionType": "smartlink1",
-"navigationScreen": "[[navigationScreen]]",
-"fragmentName": "[[fragmentName]]",
-"activityName": "[[navigationScreen]]",
-"customParams": "[[customParams]]",
-"MobileFriendlyUrl": "[[MobileFriendlyUrl]]",
-"actionId": 2
-};
+   "actionName": "Dismiss",
+   "actionTextColor": "#FFFFFF",
+   "actionBgColor": "#0096FD",
+   "actionType": "dismiss",
+   "actionId": 3
+ };
 
-// Check for iOS platform
-if (typeof window.webkit !== "undefined" && typeof window.webkit.messageHandlers.ResPopupClose !== "undefined") {
-console.log("Running on iOS platform");
-window.webkit.messageHandlers.ResPopupClose.postMessage(JSON.stringify(btn1));
+switch(data)
+{
+ case 1:
+ android.ResPopupClose(JSON.stringify(btn1));
+ break;
 
-// Check for Android platform
-} else if (typeof android !== "undefined" && typeof android.ResPopupClose !== "undefined") {
- var btn2 = {
- "actionName": "Dismiss",
- "actionTextColor": "#FFFFFF",
- "actionBgColor": "#0096FD",
- "actionType": "dismiss",
- "actionId": 3,
- "data": "{\"formID\": 80, \"appID\": \"29ff7ebd-1912-4961-b86c-a2bb594ab821\", \"actionBgColor\": \"#0096FD\", \"actionType\": \"smartlink1\", \"navigationScreen\": \"\", \"actionId\": 2, \"status\": \"fail\"}"
-};
-
-console.log("Running on Android platform");
-formNotSubmit(btn2); // Call the formNotSubmit function with the Android-specific action
 }
 
-} catch (err) {
-console.error("Error occurred in myFunction:", err); // Log the error for debugging
+}
+catch(err) {
 }
 }
+
 
 </script>
     
@@ -107,7 +92,7 @@ console.error("Error occurred in myFunction:", err); // Log the error for debugg
             </button>
           
 
-            <button onclick = "myFunction()" style ="
+            <button onclick = "myFunction(1)" style ="
         position: absolute;
         left: 427px;
         top: 379px;
