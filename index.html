@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width= , initial-scale=1.0">
+  <title>Sample EDM</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    body {
+      display: flex;
+      justify-content: center;
+      /* background-color: gray; */
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 500px;
+      height: 275px;
+      position: relative;
+      background: linear-gradient(to top, #e4e4e4, #ffffff);
+      border-radius: 40px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+    }
+
+    .popup {
+      display: flex;
+      height: 100%;
+    }
+
+    .popup-left {
+      flex: 1;
+    }
+
+    .popup-left img {
+      width: 100%;
+      max-width: 380px;
+      position: absolute;
+      top: -19%;
+      left: -19%;
+    }
+
+    .popup-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container p {
+      margin-bottom: 4px;
+      margin-left: 3px;
+      font-weight: 200;
+      color: #8c8c8c;
+      font-size: 16px;
+    }
+
+    .form-elements input {
+      padding: 10px;
+      margin: 5px 0;
+      text-indent: 10px;
+      width: 250px;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      box-shadow: inset 0 3px 3px #eee;
+      font-size: 14px;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+
+    .submit-btn {
+      padding: 10px;
+      background: linear-gradient(to top, #165df1, #da52ff);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 250px;
+      margin-top: 5px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      background-color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      color: #999;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+      z-index: 999;
+    }
+
+    .error-message {
+      height: 10px;
+      padding: 1px;
+      font-size: 12px;
+      margin-bottom: 2px;
+      color: red;
+    }
+
+    .thank-you {
+      display: none;
+      /* Hide thank-you by default */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+
+      border-radius: 8px;
+      /* overflow: hidden; */
+      background: transparent;
+    }
+
+    .top-section {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: 0.5px solid rgba(0, 0, 0, 0.2);
+      /* Add black border */
+    }
+
+    .thank-you .top-section {
+      background-color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 30px;
+    }
+
+    .thank-you .top-section img {
+      max-width: 200px;
+      /* Adjust image size */
+      margin-bottom: 10px;
+    }
+
+    .thank-you .top-section p {
+      margin: -5px;
+      font-size: 16px;
+      color: #889398;
+      margin-bottom: 10px;
+    }
+
+    .thank-you .top-section h2 {
+      margin-top: 20px;
+      font-size: 30px;
+      color: #657378;
+    }
+
+    .thank-you .bottom-section {
+      background-color: transparent;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .thank-you .bottom-section button {
+      background: linear-gradient(to top, #165df1, #da52ff);
+      color: white;
+      border: none;
+      padding: 10px 100px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 26px;
+      font-weight: bolder;
+    }
+
+    .thank-you .bottom-section button:hover {
+      background: linear-gradient(to top, #165df1, #da52ff);
+    }
+
+    .thank-you-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #responsive-image-mobile {
+      width: 0%;
+    }
+
+    #responsive-image {
+      width: 100%;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        width: 260px;
+        height: 320px;
+        max-height: 400px;
+        transform: translateY(50px);
+      }
+
+      .popup {
+        flex-direction: column;
+      }
+
+      .popup-left img {
+        top: -66%;
+        left: 1%;
+      }
+
+      .form-elements input {
+        padding: 8px;
+        width: 220px;
+      }
+
+
+      .submit-btn {
+        padding: 8px;
+        width: 220px;
+      }
+
+      .close-btn {
+        top: -228px;
+      }
+
+      #responsive-image-mobile {
+        width: 100%;
+      }
+
+      #responsive-image {
+        width: 0%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button class="close-btn" onclick="closeThankyouPopup()">&#215;</button>
+    <div class="popup">
+      <div class="popup-left">
+        <img id="responsive-image" src="./images/image_ads.svg" alt="Responsive Image">
+        <img id="responsive-image-mobile" src="./images/image_ads_mobile.svg" alt="Responsive Image">
+      </div>
+      <div class="popup-right">
+        <div class="form-container">
+          <p>Silahkan Isi Form Berikut:</p>
+          <div class="form-elements">
+            <input type="text" id="nama-desk" placeholder="Nama" />
+            <div class="error-message" id="namaErrorDesk"></div>
+
+            <input type="text" id="noHp-desk" placeholder="No. Hp" />
+            <div class="error-message" id="noHpErrorDesk"></div>
+
+            <input type="email" id="email-desk" placeholder="Email" />
+            <div class="error-message" id="emailErrorDesk"></div>
+          </div>
+          <button type="submit" onclick="validateForm()" class="submit-btn">SUBMIT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- thank-you content section -->
+  <div class="thank-you-overlay"></div>
+  <div class="thank-you" id="thank-you">
+    <div class="top-section">
+      <img src="./images/img_thx3.svg" alt="Thank You" />
+      <h2>Terima Kasih</h2>
+      <p>
+        Permintaan Anda telah diterima. Kami akan segera menghubungi Anda!
+      </p>
+    </div>
+    <div class="bottom-section">
+      <button onclick="closeThankyouPopup()">CLOSE</button>
+    </div>
+  </div>
+
+  <script src="https://sdk.smartdx.co/common/scripts/Formutility.js"></script>
+
+  <script>
+    let Successflag = false;
+  
+    let resulvalue = {
+      Name: "",
+      Phone_no: "",
+      Email: "",
+      emailValue: "",
+      //FormUtility Default Fields
+      Notsubmit: "no",
+      checkbox: "on",
+      cid: "",
+      SourceURL: window.parent.location.href,
+      pagetitle: "",
+      rid: "",
+      //Change this Fields
+      apikey: "39d4ecc6_a0e0_46d8_870d_3368e9a2a347",
+      formid: "3",
+    };
+  
+    document
+      .getElementById("nama-desk")
+      .addEventListener("input", validateNamaDesk);
+    document
+      .getElementById("noHp-desk")
+      .addEventListener("input", validateNoHpDesk);
+    document
+      .getElementById("email-desk")
+      .addEventListener("input", validateEmailDesk);
+  
+    function validateNamaDesk() {
+      const nama = document.getElementById("nama-desk").value.trim();
+      const namaError = document.getElementById("namaErrorDesk");
+  
+      if (nama === "") {
+        namaError.textContent = "Nama tidak boleh kosong.";
+      } else {
+        namaError.textContent = "";
+      }
+    }
+  
+    function validateNoHpDesk() {
+      const noHp = document.getElementById("noHp-desk").value.trim();
+      const noHpError = document.getElementById("noHpErrorDesk");
+  
+      if (noHp === "") {
+        noHpError.textContent = "No. Hp tidak boleh kosong.";
+      } else if (isNaN(noHp) || noHp <= 0) {
+        noHpError.textContent = "No. Hp harus berupa angka positif.";
+      } else {
+        noHpError.textContent = "";
+      }
+    }
+  
+    function validateEmailDesk() {
+      const email = document.getElementById("email-desk").value.trim();
+      const emailError = document.getElementById("emailErrorDesk");
+  
+      if (email === "") {
+        emailError.textContent = "Email tidak boleh kosong.";
+      } else {
+        // Basic email validation
+        const atIndex = email.indexOf('@');
+        const dotIndex = email.lastIndexOf('.');
+        if (atIndex === -1 || dotIndex === -1 || atIndex > dotIndex) {
+          emailError.textContent = "Format email tidak valid.";
+        } else {
+          emailError.textContent = "";
+        }
+      }
+    }
+  
+    function validateForm() {
+      validateNamaDesk();
+      validateNoHpDesk();
+      validateEmailDesk();
+  
+      const isValid =
+        document.getElementById("namaErrorDesk").textContent === "" &&
+        document.getElementById("noHpErrorDesk").textContent === "" &&
+        document.getElementById("emailErrorDesk").textContent === "";
+  
+      if (isValid) {
+        const nama = document.getElementById("nama-desk").value.trim();
+        const noHp = document.getElementById("noHp-desk").value.trim();
+        const email = document.getElementById("email-desk").value.trim();
+        resulvalue.Name = nama;
+        resulvalue.Phone_no = noHp;
+        resulvalue.email = email;
+        resulvalue.emailValue = email;
+        // console.log("Nama:", resulvalue);
+  
+        Successflag = true;
+        formOnSubmit(resulvalue, undefined, true);
+        showThankyouPopup();
+      }
+  
+      return isValid;
+    }
+  
+    function showThankyouPopup() {
+      document.querySelector(".popup").style.display = "none";
+      document.querySelector('.container').style.display = "none";
+      document.querySelector(".thank-you-overlay").style.display = "block";
+      document.getElementById("thank-you").style.display = "block";
+    }
+  
+    function closeThankyouPopup() {
+      document.querySelector(".container").style.display = "none";
+      document.querySelector(".popup").style.display = "none";
+      document.querySelector(".thank-you-overlay").style.display = "none";
+      document.getElementById("thank-you").style.display = "none";
+  
+      if (parent.window?.ReWebSDK) {
+        if (Successflag) {
+          formSubmitSuccess(resulvalue);
+        } else {
+          formNotSubmit(resulvalue);
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
