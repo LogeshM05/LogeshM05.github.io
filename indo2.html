@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Glassmorphism Login Form Tutorial in HTML CSS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
+    <!--Stylesheet-->
+    <style media="screen">
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        form {
+            width: 100%;
+            max-width: 460px;
+            padding: 50px 35px;
+            border-radius: 50px;
+            box-shadow: 0 0 5px #858585;
+            text-align: center;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        form img.background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .bordered {
+            border-radius: 16px;
+            padding: 10px 24px;
+        }
+
+        form img.close-btn {
+            position: absolute;
+            top: 13px;
+            right: 20px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        form * {
+            font-family: "Poppins", sans-serif;
+            color: #000000;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+
+        form h3 {
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+        }
+
+        form p {
+            font-size: 14px;
+            text-align: center;
+            font-weight: 300;
+            padding: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 12px;
+            font-weight: 300;
+            text-align: left;
+        }
+
+        input {
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: #f2f6fc;
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        ::placeholder {
+            color: #000000;
+        }
+
+        button {
+            width: 100%;
+            padding: 9px 0;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.submit {
+            margin-top: 30px;
+            background-image: linear-gradient(to right, #0e47b7, #3a6ef3);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        button.later {
+            margin: 20px 0px;
+            background-color: #ffffff;
+            color: #868686;
+            font-weight: 300;
+            border: 1px solid #d8d8d8;
+        }
+
+        .input-error {
+            color: #ef4e00;
+            margin-top: 5px;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .loader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            form {
+                padding: 30px 20px;
+            }
+
+            form h3 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+
+            input {
+                height: 45px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            form {
+                padding: 20px 15px;
+            }
+
+            form h3 {
+                font-size: 20px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+
+            input {
+                height: 40px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader-container" id="loader-container" style="display: none">
+        <div id="loader" class="loader"></div>
+    </div>
+    <div class="form-container">
+        <form id="myForm">
+            <img src="./images/x_botton.png" alt="Close" class="close-btn" onclick="closeForm()" />
+            <img src="./images/bg1.png" alt="Background Image" class="background-image" />
+
+            <h3>Selamat Datang</h3>
+            <p>
+                Ada produk yang diincar? <b>Daftar sekarang</b> dan <br />dapatkan
+                <b>penawaran spesial</b> hari ini!
+            </p>
+
+            <div class="form-row bordered">
+                <label for="nama">Nama</label>
+                <input type="text" placeholder="Nama" id="nama" />
+                <div id="error_name" class="input-error"></div>
+
+                <label for="no_hp">No. hp</label>
+                <input type="text" placeholder="No. hp" maxlength="16" id="no_hp" />
+                <div id="error_mobileno" class="input-error"></div>
+
+                <label for="email">Email</label>
+                <input type="text" placeholder="Email" id="email" />
+                <div id="error_emailid" class="input-error"></div>
+
+                <button type="button" class="submit" onclick="contactForm()">
+                    SUBMIT
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://sdk.smartdx.co/common/scripts/Formutility.js" defer></script>
+    <script>
+        document.getElementById("nama").addEventListener("input", function () {
+            if (this.value !== "") {
+                document.getElementById("error_name").style.display = "none";
+            }
+        });
+
+        document.getElementById("email").addEventListener("input", function () {
+            const emailId = this.value;
+            const atIndex = emailId.indexOf("@");
+            const dotIndex = emailId.lastIndexOf(".");
+
+            if (emailId !== "" && atIndex !== -1 && dotIndex !== -1 && atIndex < dotIndex) {
+                document.getElementById("error_emailid").style.display = "none";
+            }
+        });
+
+        document.getElementById("no_hp").addEventListener("input", function () {
+            if (this.value.length > 0 && this.value.length <= 16) {
+                document.getElementById("error_mobileno").style.display = "none";
+            }
+        });
+        var contactFormData = {
+            Name: name,
+            EmailID: emailId,
+            MobileNo: mobileNo,
+            rid: "L_C82FD4DE",
+            resulid: "",
+            cid: "",
+            SourceURL: window.parent.location.href,
+            uniquecode: "",
+            pagereferrerurl: "",
+            kycredirecturl: "0",
+            iskyc: "0",
+            groupiconcount: "0",
+            Notsubmit: "no",
+            checkbox: "on",
+            apikey: "",
+            formid: "",
+            pagetitle: "",
+        };
+        function closeForm() {
+            formNotSubmit(contactFormData);
+        }
+        function later() {
+            formNotSubmit(contactFormData);
+        }
+        function contactForm() {
+            var name = document.getElementById("nama").value;
+            var emailId = document.getElementById("email").value;
+            var mobileNo = document.getElementById("no_hp").value;
+
+            let validationArr = [];
+
+            if (name == "") {
+                document.getElementById("error_name").innerHTML = "Enter nama";
+                document.getElementById("error_name").style.display = "block";
+                validationArr.push(false);
+            } else {
+                document.getElementById("error_name").style.display = "none";
+                validationArr.push(true);
+            }
+
+            if (emailId === "") {
+                document.getElementById("error_emailid").innerHTML =
+                    "Email tidak boleh kosong.";
+                document.getElementById("error_emailid").style.display = "block";
+                validationArr.push(false);
+            } else {
+                const atIndex = emailId.indexOf("@");
+                const dotIndex = emailId.lastIndexOf(".");
+                if (atIndex === -1 || dotIndex === -1 || atIndex > dotIndex) {
+                    document.getElementById("error_emailid").innerHTML =
+                        "Format email tidak valid.";
+                    document.getElementById("error_emailid").style.display = "block";
+                    validationArr.push(false);
+                } else {
+                    document.getElementById("error_emailid").style.display = "none";
+                    validationArr.push(true);
+                }
+            }
+
+            if (mobileNo == "") {
+                document.getElementById("error_mobileno").innerHTML = "Enter No. hp";
+                document.getElementById("error_mobileno").style.display = "block";
+                validationArr.push(false);
+            } else if (mobileNo?.length < 16) {
+                document.getElementById("error_mobileno").innerHTML =
+                    "Enter a Valid No. hp";
+                document.getElementById("error_mobileno").style.display = "block";
+                validationArr.push(false);
+            } else {
+                document.getElementById("error_mobileno").style.display = "none";
+                validationArr.push(true);
+            }
+
+            let formNotValid = validationArr.some((obj) => obj == false);
+
+            if (!formNotValid) {
+                contactFormData = {
+                    Name: name,
+                    EmailID: emailId,
+                    MobileNo: mobileNo,
+                    // Resul Api fields
+                    rid: "",
+                    resulid: "",
+                    cid: "",
+                    SourceURL: window.parent.location.href,
+                    uniquecode: "",
+                    pagereferrerurl: "",
+                    kycredirecturl: "0",
+                    iskyc: "0",
+                    groupiconcount: "0",
+                    Notsubmit: "no",
+                    checkbox: "on",
+                    apikey: "",
+                    formid: "",
+                    pagetitle: "",
+                };
+                formOnSubmit(contactFormData, undefined, false);
+            }
+        }
+    </script>
+</body>
+
+</html>
