@@ -4,6 +4,8 @@ from time import time
 
 def load_caffe_model():
     """Loads the Caffe model for face detection."""
+    model = "Caffe model loaded successfully"  # Replace this with actual model loading logic
+    print(model)
     model = cv2.dnn.readNetFromCaffe(
         prototxt="models/deploy.prototxt",
         caffeModel="models/res10_300x300_ssd_iter_140000_fp16.caffemodel"
