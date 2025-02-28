@@ -1,43 +1,27 @@
 import cv2
 import os
-import android
 import urllib.request
 
-# Global model paths
+# URLs for downloading the model files
 MODEL_URLS = {
     "prototxt": "https://logeshm05.github.io/deploy.prototxt",
     "caffemodel": "https://logeshm05.github.io/res10_300x300_ssd_iter_140000_fp16.caffemodel"
 }
 
 def get_model_paths():
-    """Returns the internal storage paths for model files."""
-    context = android.context
-    app_storage = context.getFilesDir().getAbsolutePath()  # Internal storage path
-    model_dir = os.path.join(app_storage, "models")
-    os.makedirs(model_dir, exist_ok=True)  # Ensure model directory exists
+    """Get internal storage paths for models in Android."""
+    base_dir = os.path.expanduser("~")  # Chaquopy internal storage
+    model_dir = os.path.join(base_dir, "models")
+    os.makedirs(model_dir, exist_ok=True)  # Ensure the directory exists
 
     return {
         "prototxt": os.path.join(model_dir, "deploy.prototxt"),
         "caffemodel": os.path.join(model_dir, "res10_300x300_ssd_iter_140000_fp16.caffemodel")
     }
 
-def copy_from_assets():
-    """Copies model files from assets to internal storage if they don’t exist."""
-    context = android.context
-    asset_manager = context.getAssets()
-    paths = get_model_paths()
-
-    for key, path in paths.items():
-        if not os.path.exists(path):
-            with asset_manager.open(f"models/{os.path.basename(path)}") as src, open(path, "wb") as dst:
-                dst.write(src.read())
-
-    return paths["prototxt"], paths["caffemodel"]
-
 def download_model():
-    """Downloads model files if not found in internal storage."""
+    """Download model files if they don’t exist in the internal storage."""
     paths = get_model_paths()
-
     for key, path in paths.items():
         if not os.path.exists(path):
             print(f"Downloading {key} model...")
@@ -46,11 +30,9 @@ def download_model():
     return paths["prototxt"], paths["caffemodel"]
 
 def load_caffe_model():
-    """Loads the Caffe model for face detection."""
+    """Load Caffe face detection model."""
     try:
-        # prototxt_path, caffemodel_path = copy_from_assets()  # Use assets (Static)
-        prototxt_path, caffemodel_path = download_model()  # Use download (Dynamic)
-
+        prototxt_path, caffemodel_path = download_model()  # Downloads if not present
         net = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
         print("✅ Model loaded successfully!")
         return net
@@ -59,7 +41,7 @@ def load_caffe_model():
         return None
 
 def detect_faces(image_path):
-    """Detects faces in an image using the loaded model."""
+    """Detect faces in an image."""
     net = load_caffe_model()
     if net is None:
         return "Model loading failed."
