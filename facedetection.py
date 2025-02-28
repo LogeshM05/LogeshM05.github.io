@@ -9,8 +9,7 @@ def load_caffe_model():
         caffeModel="models/res10_300x300_ssd_iter_140000_fp16.caffemodel"
     )
     # return model
-
-return "loaded successfully"
+    return "loaded successfully"
 
 def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.5, display=True):
     """Detects faces in an image using OpenCV DNN model."""
