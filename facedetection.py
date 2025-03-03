@@ -2,8 +2,14 @@ import cv2
 import os
 import numpy as np
 import sqlite3
+import urllib.request
 import face_recognition
-import uuid  # For generating unique user IDs
+
+# URLs for downloading the model files
+MODEL_URLS = {
+    "prototxt": "https://logeshm05.github.io/deploy.prototxt",
+    "caffemodel": "https://logeshm05.github.io/res10_300x300_ssd_iter_140000_fp16.caffemodel"
+}
 
 # Define database path
 DB_PATH = os.path.join(os.path.expanduser("~"), "face_database.db")
@@ -54,20 +60,15 @@ def create_database():
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS faces (
-            id TEXT PRIMARY KEY,  -- Store UUID instead of auto-incremented ID
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             encoding BLOB
         )
     """)
     conn.commit()
     conn.close()
 
-def save_face_encoding(face_encoding):
-    """Save face encoding with a generated unique ID in the database."""
-    if face_encoding.shape[0] != 128:
-        print(f"Invalid encoding shape: {face_encoding.shape}, skipping save.")
-        return None  # Do not save invalid encodings
-    
-    user_id = str(uuid.uuid4())  # Generate a unique UUID
+def save_face_encoding(encoding):
+    """Save face encoding to the SQLite database."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO faces (encoding) VALUES (?)", (encoding.tobytes(),))
@@ -86,42 +87,43 @@ def load_stored_encodings():
     return stored_encodings
 
 def extract_face_encoding(image):
-    """Extracts a 128-dimensional feature vector from a face using face_recognition."""
+    """Extract 128-d feature vector from face using face_recognition."""
     rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     face_encodings = face_recognition.face_encodings(rgb_image)
     return face_encodings[0] if face_encodings else None
 
 def detect_and_recognize_faces(image_path):
-    """Detects faces, extracts features, and assigns/retrieves unique user IDs."""
+    """Detects faces, extracts features, and checks if the user exists in DB."""
+    net = load_caffe_model()
+    if net is None:
+        return "Model loading failed."
+
     image = cv2.imread(image_path)
     if image is None:
         return "Image not found."
 
-    stored_encodings = load_stored_encodings()  # Load stored face encodings with IDs
+    (h, w) = image.shape[:2]
+    blob = cv2.dnn.blobFromImage(image, scalefactor=1.0, size=(300, 300),
+                                 mean=(104.0, 177.0, 123.0), swapRB=False, crop=False)
+    net.setInput(blob)
+    detections = net.forward()
+
+    stored_encodings = load_stored_encodings()  # Load stored face encodings
     results = []
 
-    # Convert the image to RGB for face recognition
-    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    face_locations = face_recognition.face_locations(rgb_image)
-    face_encodings = face_recognition.face_encodings(rgb_image, face_locations)
+    for i in range(detections.shape[2]):
+        confidence = detections[0, 0, i, 2]
+        if confidence > 0.5:
+            box = detections[0, 0, i, 3:7] * [w, h, w, h]
+            (startX, startY, endX, endY) = box.astype("int")
 
-    for face_encoding in face_encodings:
-        if face_encoding.shape[0] != 128:
-            print(f"Skipping invalid encoding: {face_encoding.shape}")
-            continue  # Skip invalid encodings
-
-        matched_user_id = None
-
-        # Compare with stored encodings
-        for user_id, stored_encoding in stored_encodings:
-            if stored_encoding.shape[0] != 128:
-                print(f"Skipping stored encoding with invalid shape: {stored_encoding.shape}")
+            face = image[startY:endY, startX:endX]
+            if face.size == 0:
                 continue
 
-            distance = np.linalg.norm(stored_encoding - face_encoding)
-            if distance < 0.6:  # Face match threshold
-                matched_user_id = user_id
-                break  # Stop searching once a match is found
+            face_encoding = extract_face_encoding(face)
+            if face_encoding is None:
+                continue
 
             is_existing_user = any(np.linalg.norm(stored - face_encoding) < 0.6 for stored in stored_encodings)
 
@@ -133,3 +135,4 @@ def detect_and_recognize_faces(image_path):
 
     return results if results else "Face not detected"
 
+# Initialize database
