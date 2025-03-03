@@ -68,7 +68,6 @@ def load_caffe_model():
 #     return output_path
 
 
-
 def detect_faces(image_path):
     """Detects faces in an image using the loaded model."""
     net = load_caffe_model()
@@ -76,6 +75,9 @@ def detect_faces(image_path):
         return "Model loading failed."
 
     image = cv2.imread(image_path)
+    if image is None:
+        return "Image not found."
+
     (h, w) = image.shape[:2]
     blob = cv2.dnn.blobFromImage(image, scalefactor=1.0, size=(300, 300),
                                  mean=(104.0, 177.0, 123.0), swapRB=False, crop=False)
@@ -92,7 +94,7 @@ def detect_faces(image_path):
             cv2.rectangle(image, (startX, startY), (endX, endY), (0, 255, 0), 2)
 
     if face_count == 0:
-    return "Face not detected."
+        return "Face not detected."  # Fixed indentation
 
     output_path = image_path.replace(".jpg", "_detected.jpg")
     cv2.imwrite(output_path, image)
