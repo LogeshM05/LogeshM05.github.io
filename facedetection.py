@@ -68,7 +68,11 @@ def create_database():
     conn.close()
 
 def save_face_encoding(encoding):
-    """Save face encoding to the SQLite database."""
+    """Save face encoding to the SQLite database, ensuring it's 128-dimensional."""
+    if encoding.shape != (128,):  # Ensure encoding is correct
+        print(f"Invalid encoding shape: {encoding.shape}, skipping save.")
+        return None  # Skip invalid encodings
+    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO faces (encoding) VALUES (?)", (encoding.tobytes(),))
@@ -76,13 +80,21 @@ def save_face_encoding(encoding):
     conn.close()
 
 def load_stored_encodings():
-    """Retrieve stored encodings from the database (Optimized)."""
+    """Retrieve stored encodings and filter out any incorrect ones."""
     global stored_encodings
     if stored_encodings is None:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute("SELECT encoding FROM faces")
-        stored_encodings = [np.frombuffer(enc[0], dtype=np.float32) for enc in cursor.fetchall()]
+        
+        stored_encodings = []
+        for row in cursor.fetchall():
+            encoding = np.frombuffer(row[0], dtype=np.float32)
+            if encoding.shape == (128,):  # Ensure it's the correct shape
+                stored_encodings.append(encoding)
+            else:
+                print(f"Skipping invalid encoding with shape: {encoding.shape}")
+
         conn.close()
     return stored_encodings
 
@@ -134,3 +146,19 @@ def detect_and_recognize_faces(image_path):
                 results.append("New User ❌")
 
     return results if results else "Face not detected"
+
+# Run this once to clean up invalid encodings in the database
+def clean_invalid_encodings():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, encoding FROM faces")
+
+    for row in cursor.fetchall():
+        encoding = np.frombuffer(row[1], dtype=np.float32)
+        if encoding.shape != (128,):
+            print(f"Deleting invalid encoding for ID: {row[0]}, shape: {encoding.shape}")
+            cursor.execute("DELETE FROM faces WHERE id=?", (row[0],))
+
+    conn.commit()
+    conn.close()
+    print("✅ Invalid encodings removed successfully.")
