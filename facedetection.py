@@ -94,7 +94,7 @@ def detect_faces(image_path):
             cv2.rectangle(image, (startX, startY), (endX, endY), (0, 255, 0), 2)
 
     if face_count == 0:
-        return "Face not detected."  # Fixed indentation
+        return "Face not detected"  # Fixed indentation
 
     output_path = image_path.replace(".jpg", "_detected.jpg")
     cv2.imwrite(output_path, image)
