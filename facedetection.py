@@ -8,6 +8,46 @@ import uuid  # For generating unique user IDs
 # Define database path
 DB_PATH = os.path.join(os.path.expanduser("~"), "face_database.db")
 
+# Global variables
+caffe_model = None
+stored_encodings = None  # Cache encodings for performance
+
+def get_model_paths():
+    """Get internal storage paths for models."""
+    base_dir = os.path.expanduser("~")  # Chaquopy internal storage
+    model_dir = os.path.join(base_dir, "models")
+    os.makedirs(model_dir, exist_ok=True)
+
+    return {
+        "prototxt": os.path.join(model_dir, "deploy.prototxt"),
+        "caffemodel": os.path.join(model_dir, "res10_300x300_ssd_iter_140000_fp16.caffemodel")
+    }
+
+def download_model():
+    """Download model files if they don’t exist."""
+    paths = get_model_paths()
+    for key, path in paths.items():
+        if not os.path.exists(path):
+            try:
+                print(f"Downloading {key} model...")
+                urllib.request.urlretrieve(MODEL_URLS[key], path)
+            except Exception as e:
+                print(f"❌ Error downloading {key}: {e}")
+    return paths["prototxt"], paths["caffemodel"]
+
+def load_caffe_model():
+    """Load the Caffe model once and reuse it."""
+    global caffe_model
+    if caffe_model is None:
+        try:
+            prototxt_path, caffemodel_path = download_model()
+            caffe_model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
+            print("✅ Model loaded successfully!")
+        except Exception as e:
+            print(f"❌ Error loading model: {e}")
+            caffe_model = None
+    return caffe_model
+
 def create_database():
     """Create the SQLite database and table if they don't exist."""
     conn = sqlite3.connect(DB_PATH)
@@ -30,41 +70,26 @@ def save_face_encoding(face_encoding):
     user_id = str(uuid.uuid4())  # Generate a unique UUID
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO faces (id, encoding) VALUES (?, ?)", (user_id, face_encoding.tobytes()))
+    cursor.execute("INSERT INTO faces (encoding) VALUES (?)", (encoding.tobytes(),))
     conn.commit()
     conn.close()
-    return user_id
 
 def load_stored_encodings():
-    """Retrieve stored encodings along with their unique IDs from the database."""
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, encoding FROM faces")
-    
-    stored_data = []
-    for row in cursor.fetchall():
-        encoding = np.frombuffer(row[1], dtype=np.float32)
-        if encoding.shape[0] == 128:  # Ensure valid encoding
-            stored_data.append((row[0], encoding))
-        else:
-            print(f"Skipping corrupted encoding for ID: {row[0]}")
-
-    conn.close()
-    return stored_data
+    """Retrieve stored encodings from the database (Optimized)."""
+    global stored_encodings
+    if stored_encodings is None:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT encoding FROM faces")
+        stored_encodings = [np.frombuffer(enc[0], dtype=np.float32) for enc in cursor.fetchall()]
+        conn.close()
+    return stored_encodings
 
 def extract_face_encoding(image):
     """Extracts a 128-dimensional feature vector from a face using face_recognition."""
     rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     face_encodings = face_recognition.face_encodings(rgb_image)
-    
-    if face_encodings:
-        encoding = face_encodings[0]
-        if encoding.shape[0] == 128:
-            return encoding
-        else:
-            print(f"Unexpected encoding shape: {encoding.shape}, skipping.")
-            return None
-    return None
+    return face_encodings[0] if face_encodings else None
 
 def detect_and_recognize_faces(image_path):
     """Detects faces, extracts features, and assigns/retrieves unique user IDs."""
@@ -98,11 +123,13 @@ def detect_and_recognize_faces(image_path):
                 matched_user_id = user_id
                 break  # Stop searching once a match is found
 
-        if matched_user_id:
-            results.append(f"User ID: {matched_user_id}")
-        else:
-            new_user_id = save_face_encoding(face_encoding)  # Save new encoding with UUID
-            if new_user_id:
-                results.append(f"New User ID: {new_user_id}")
+            is_existing_user = any(np.linalg.norm(stored - face_encoding) < 0.6 for stored in stored_encodings)
+
+            if is_existing_user:
+                results.append("Existing User ✅")
+            else:
+                save_face_encoding(face_encoding)
+                results.append("New User ❌")
 
     return results if results else "Face not detected"
+
