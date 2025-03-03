@@ -134,5 +134,3 @@ def detect_and_recognize_faces(image_path):
                 results.append("New User ❌")
 
     return results if results else "Face not detected"
-
-# Initialize database
