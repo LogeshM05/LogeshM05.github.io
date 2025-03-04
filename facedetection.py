@@ -83,7 +83,7 @@ def detect_faces(image_path):
 
 def face_recognition_api(image_path):
     """Sends the processed image to the face recognition API."""
-    url = "http://localhost:5000/recognize"
+    url = "http://172.31.3.188:5000//recognize"
     
     try:
         with open(image_path, 'rb') as image_file:
