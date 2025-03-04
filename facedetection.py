@@ -8,6 +8,9 @@ MODEL_URLS = {
     "caffemodel": "https://logeshm05.github.io/res10_300x300_ssd_iter_140000_fp16.caffemodel"
 }
 
+# Global variable to store the model
+caffe_model = None
+
 def get_model_paths():
     """Get internal storage paths for models in Android."""
     base_dir = os.path.expanduser("~")  # Chaquopy internal storage
@@ -30,15 +33,43 @@ def download_model():
     return paths["prototxt"], paths["caffemodel"]
 
 def load_caffe_model():
-    """Load Caffe face detection model."""
-    try:
-        prototxt_path, caffemodel_path = download_model()  # Downloads if not present
-        net = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
-        print("✅ Model loaded successfully!")
-        return net
-    except Exception as e:
-        print(f"❌ Error loading model: {e}")
-        return None
+    """Load the Caffe model only once and reuse it."""
+    global caffe_model
+    if caffe_model is None:
+        try:
+            prototxt_path, caffemodel_path = download_model()  # Downloads if not present
+            caffe_model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
+            print("✅ Model loaded successfully!")
+        except Exception as e:
+            print(f"❌ Error loading model: {e}")
+            caffe_model = None
+
+    return caffe_model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def detect_faces(image_path):
     """Detects faces in an image using the loaded model."""
@@ -66,7 +97,9 @@ def detect_faces(image_path):
             cv2.rectangle(image, (startX, startY), (endX, endY), (0, 255, 0), 2)
 
     if face_count == 0:
-        return "Face not detected"  # Fixed indentation
+        return "Face not detected"
 
     output_path = image_path.replace(".jpg", "_detected.jpg")
     cv2.imwrite(output_path, image)
+    print(f"✅ Faces detected: {face_count}, saved at {output_path}")
+    return output_path
