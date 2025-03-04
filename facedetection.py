@@ -1,6 +1,7 @@
 import cv2
 import os
 import urllib.request
+import requests
 
 # URLs for downloading the model files
 MODEL_URLS = {
@@ -46,33 +47,8 @@ def load_caffe_model():
 
     return caffe_model
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def detect_faces(image_path):
-    """Detects faces in an image using the loaded model."""
+    """Detects faces in an image using the loaded model and sends it to API."""
     net = load_caffe_model()
     if net is None:
         return "Model loading failed."
@@ -102,4 +78,22 @@ def detect_faces(image_path):
     output_path = image_path.replace(".jpg", "_detected.jpg")
     cv2.imwrite(output_path, image)
     print(f"✅ Faces detected: {face_count}, saved at {output_path}")
-    return output_path
+
+    return face_recognition_api(output_path)
+
+def face_recognition_api(image_path):
+    """Sends the processed image to the face recognition API."""
+    url = "http://localhost:5000/recognize"
+    
+    try:
+        with open(image_path, 'rb') as image_file:
+            files = {"image": (os.path.basename(image_path), image_file, "image/jpeg")}
+            response = requests.post(url, files=files)
+            print(f"✅ API Response: {response.text}")
+            return response.text
+    except Exception as e:
+        print(f"❌ Error sending image to API: {e}")
+        return "API request failed."
+
+# Example usage
+# detect_faces("path/to/your/image.jpg")
