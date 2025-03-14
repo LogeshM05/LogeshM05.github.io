@@ -2,53 +2,54 @@ import cv2
 import os
 import urllib.request
 import requests
+import json
 
-# URLs for downloading the model files
+# Constants
 MODEL_URLS = {
     "prototxt": "https://logeshm05.github.io/deploy.prototxt",
     "caffemodel": "https://logeshm05.github.io/res10_300x300_ssd_iter_140000_fp16.caffemodel"
 }
+CONFIDENCE_THRESHOLD = 0.5
+BLOB_SIZE = (300, 300)
 
-# Global variable to store the model
+# Global model cache
 caffe_model = None
 
 def get_model_paths():
-    """Get internal storage paths for models in Android."""
-    base_dir = os.path.expanduser("~")  # Chaquopy internal storage
+    base_dir = os.path.expanduser("~")
     model_dir = os.path.join(base_dir, "models")
-    os.makedirs(model_dir, exist_ok=True)  # Ensure the directory exists
-
+    os.makedirs(model_dir, exist_ok=True)
     return {
         "prototxt": os.path.join(model_dir, "deploy.prototxt"),
         "caffemodel": os.path.join(model_dir, "res10_300x300_ssd_iter_140000_fp16.caffemodel")
     }
 
 def download_model():
-    """Download model files if they don’t exist in the internal storage."""
     paths = get_model_paths()
     for key, path in paths.items():
         if not os.path.exists(path):
-            print(f"Downloading {key} model...")
-            urllib.request.urlretrieve(MODEL_URLS[key], path)
-
+            try:
+                print(f"Downloading {key} model...")
+                urllib.request.urlretrieve(MODEL_URLS[key], path)
+            except Exception as e:
+                print(f"❌ Failed to download {key}: {e}")
     return paths["prototxt"], paths["caffemodel"]
 
 def load_caffe_model():
-    """Load the Caffe model only once and reuse it."""
     global caffe_model
     if caffe_model is None:
         try:
-            prototxt_path, caffemodel_path = download_model()  # Downloads if not present
+            prototxt_path, caffemodel_path = download_model()
             caffe_model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
             print("✅ Model loaded successfully!")
         except Exception as e:
             print(f"❌ Error loading model: {e}")
             caffe_model = None
-
     return caffe_model
 
 def detect_faces(image_path):
-    """Detects faces in an image using the loaded model and sends it to API."""
+    print(f"✅ Python connected")
+
     net = load_caffe_model()
     if net is None:
         return "Model loading failed."
@@ -58,7 +59,7 @@ def detect_faces(image_path):
         return "Image not found."
 
     (h, w) = image.shape[:2]
-    blob = cv2.dnn.blobFromImage(image, scalefactor=1.0, size=(300, 300),
+    blob = cv2.dnn.blobFromImage(image, scalefactor=1.0, size=BLOB_SIZE,
                                  mean=(104.0, 177.0, 123.0), swapRB=False, crop=False)
     net.setInput(blob)
     detections = net.forward()
@@ -66,7 +67,7 @@ def detect_faces(image_path):
     face_count = 0
     for i in range(detections.shape[2]):
         confidence = detections[0, 0, i, 2]
-        if confidence > 0.5:
+        if confidence > CONFIDENCE_THRESHOLD:
             face_count += 1
             box = detections[0, 0, i, 3:7] * [w, h, w, h]
             (startX, startY, endX, endY) = box.astype("int")
@@ -82,18 +83,27 @@ def detect_faces(image_path):
     return face_recognition_api(output_path)
 
 def face_recognition_api(image_path):
-    """Sends the processed image to the face recognition API."""
-    url = "http://172.31.3.188:5000//recognize"
-    
+    url = "http://172.31.3.151:5005/recognize"
     try:
         with open(image_path, 'rb') as image_file:
             files = {"image": (os.path.basename(image_path), image_file, "image/jpeg")}
-            response = requests.post(url, files=files)
+            headers = {"Accept": "application/json"}
+            response = requests.post(url, files=files, headers=headers)
             print(f"✅ API Response: {response.text}")
-            return response.text
+            json_response = response.json()
+            # json_response["image_path"] = image_path
+            return json_response
     except Exception as e:
         print(f"❌ Error sending image to API: {e}")
-        return "API request failed."
+        return {"error": "API request failed.", "message": str(e)}
 
-# Example usage
-# detect_faces("path/to/your/image.jpg")
+def send_image_to_server(image_path):
+    url = "http://172.31.3.151:5005/upload"
+    try:
+        with open(image_path, "rb") as image_file:
+            files = {"image": image_file}
+            response = requests.post(url, files=files)
+        return response.text
+    except Exception as e:
+        print(f"❌ Upload error: {e}")
+        return str(e)
