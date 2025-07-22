@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "visionbankandroid",
+  "private_key_id": "e600bb0bd3d2533d9e752d4ab2c36e86547a4e77",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDiYzsIIvhm3JW1\nl44Y7tya/Mjr7oZCIEXVs9u2K+WJOppe+OQ0x+c3aBjkXoED0uNEWq56VNbMVi9q\nDq2JmJtGF23QuCRRwYzmK+zGP4cy7KBCKq116hLzpfSHvpFyNDoQ1JuGEbjx42NG\n6CPgiVOV8lD6OyOBHx++nSRp6QCHr+R3Qi/ax+G6tH9QFICSCe4TbO7p86JS61sW\nhYM56dQ52vLx0p9rehFGQ8o3tv5LZ+k4FO87RPBL9/QX4Pb33X2Lit2qKkiqzB28\n3BZPl1l/3j0jk38fLJF+sMIZYMyMcxkpxgMIBgJik368MGvKBMb8t7SA1q+eyXfO\njTq/DtwrAgMBAAECggEAG9pdQRyFrFN3teOuGheKm8+obA1Thl+Qcquncgvc40aL\nB06e9nbL1e91nznuAfRDKD3x7oob8qr94ry95sptptuAvtJmYYqrKlx9dqIKoR4n\nf3c0Z+gDKef2pHGH/+GOF/5Yc3p1uIj4m2455R5wOBLGmhWG7Ol75Iin72yOjKLr\nmlgP6JKRaH6OiQdtF1RkcXdpw9deWZkR5dMMknYhbGlhsCihthP+1p821aYMBhgP\n64bGUPpgJtDkLa0Cngylrjkn3s30vzR/JyQtH/qGLYfDx+BLJHjbaMV5AY7ECu3s\n+rHBR8NTCKGEAn6tG4FrKDYxf7A5IfGKMyfrchdOMQKBgQD7/9Q5vDLEL6Ilfo3O\nYZMpyp9S0se3J7QxcWxM5yJbIDkAlvX/C4aHbcHPpJL1gfMQTD5MretKEZsTFyV2\nJxaJ7nQg+P2ESOzeldUwtGv3jspIoGJxtUPAjasGVtvg5RxWvyfkvfr71uB3g4OH\nzGV4b6rMfafjcfWpXFHS5MQrWwKBgQDl+0+Z3hhXWfpPdc253VF8AD/9Z5f3Twal\nAp4mXRtutiLuLxR3kKM7MZQpdle0xhaZXJGZ4GZ6K3MpbRum5vjcCeCzur4CDNxf\nYlsf6gOfR5djLO6BV9rMHedfTgx/WxlmyL3bnByZmBR6bxvjYxIz0xKu65twVb3Q\nw1ObI1l7cQKBgGigXTLjaoh95mp+0s2fQYSWdfPjQ7xNpcjpeLetN1xyUnhmNRiB\nZoeQEGnvwHxiSdK4dR1NEGWeTa5ta8ZUkE0QTfLqrgdgZ8g6mVsxbapJBL+Gp5ji\nU5D8wMdPBNepCE0T7LJSFoS9QFEer1uQh4irhFSGz0/lnsOEawyOoswFAoGAHCBL\nEOdPlMdFTJh8q4F8qKyjJsuXk0BP8LhMPSbf5v9RcE3DtAe1XtTmaNe3TD15oBHp\nIKeIAOL1d5iHbDcNMmPm3jQ1bqzB+sxdlp6ZCM7JnfBtztW+xX3WwRobfyvWBHMC\nfSwvdz1ZK8wQ3hNMs5fZzhi0bt2dlD1/KRb+p5ECgYEAtBOYeBYaqpn435xzPSik\ng8jj1mrxLAffkHOEx0UVL8eZ2E1cz04sPULMzbilXRwzEHW/rNLws/VnHuG1SgNS\nm4ASs+ab/TSnT5ubBvXsAJ1AH08mzOAchodpGKl3WNQcsPrp6kos7ZiTqRp1wD3R\nvBpNaV7E5EmQjIupgNMbLvM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-p1vv4@visionbankandroid.iam.gserviceaccount.com",
+  "client_id": "109565119247237281685",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-p1vv4%40visionbankandroid.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
